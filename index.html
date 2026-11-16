@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" as="image" href="https://plain-enam-prod-public.komododecks.com/202611/02/V01P6deeDqFl1l4xB2JJ/image.jpg" fetchpriority="high">
+  <title>Portal de Notas e Acompanhamento Pedagógico</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js" defer></script>
+  <style>
+    :root{--navy:#14243a;--navy2:#1e3552;--blue:#2563eb;--blue2:#dbeafe;--mint:#0f766e;--bg:#f3f6fa;--line:#e2e8f0;--text:#1e293b;--muted:#64748b;--shadow:0 12px 30px rgba(15,23,42,.08)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}button:disabled{opacity:.55;cursor:not-allowed}.hidden{display:none!important}
+    .splash{position:fixed;inset:0;background:linear-gradient(135deg,#101d31,#213b5b);z-index:1000;display:grid;place-items:center;color:white;transition:opacity .3s}.splash-inner{text-align:center}.school-mark{width:62px;height:62px;border-radius:18px;background:#2563eb;display:grid;place-items:center;font-size:28px;margin:0 auto 16px;box-shadow:0 10px 25px #0003}.spinner{width:38px;height:38px;border:4px solid #ffffff30;border-top-color:#93c5fd;border-radius:50%;animation:spin .8s linear infinite;margin:18px auto}@keyframes spin{to{transform:rotate(360deg)}}
+    .login-screen{position:fixed;inset:0;z-index:900;background:linear-gradient(135deg,#101d31,#213b5b);display:grid;place-items:center;padding:18px}.login-card{width:min(100%,500px);background:#fff;border:1px solid #dbe4ef;border-radius:22px;padding:36px;box-shadow:0 25px 70px #0004}.login-card h1{font-size:22px;margin:0 0 7px}.login-screen.logo-active .login-card h1,.brand.logo-active h1{display:none}.login-card p{color:var(--muted);margin:0 0 22px}.login-icon{width:58px;height:58px;background:#eaf2ff;border-radius:18px;color:#2459a7;display:grid;place-items:center;font-size:27px;margin-bottom:17px}
+    .field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:12px;font-weight:750;color:#475569}.field input,.field select,.field textarea,.control{width:100%;border:1px solid #cbd5e1;background:white;border-radius:10px;padding:10px 12px;color:#1e293b;outline:none}.field input:focus,.field select:focus,.field textarea:focus,.control:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.field textarea{resize:vertical}.remember{display:flex;align-items:center;gap:8px;color:#64748b;font-size:12px;margin:10px 0 17px}.btn{padding:10px 14px;border-radius:10px;font-weight:750;font-size:12px;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn-primary{background:var(--blue);color:white}.btn-primary:hover{background:#1d4ed8}.btn-dark{background:var(--navy);color:white}.btn-dark:hover{background:#203b5c}.btn-soft{background:#eaf0f7;color:#334155}.btn-soft:hover{background:#dce6f1}.btn-green{background:#0f766e;color:white}.btn-green:hover{background:#115e59}.btn-amber{background:#d97706;color:white}.btn-red{background:#fee2e2;color:#b91c1c}.btn-block{width:100%}.text-button{background:transparent;color:#2563eb;padding:4px;font-size:12px;font-weight:700}.tiny{font-size:11px;color:var(--muted)}
+    header{background:var(--navy);color:white;box-shadow:0 4px 14px #0f172a24;position:sticky;top:0;z-index:40}.header-inner{max-width:1660px;margin:auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand-mark{width:42px;height:42px;border-radius:13px;background:#284d79;display:grid;place-items:center;font-size:22px;flex:none}.brand h1{font-size:16px;margin:0;font-weight:800;letter-spacing:.1px}.brand p{font-size:11px;color:#bfcee0;margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(58vw,550px)}.user-area{display:flex;align-items:center;gap:10px;font-size:11px;color:#e2e8f0}.user-pill{background:#203650;border:1px solid #38516e;border-radius:10px;padding:7px 10px;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.school-select{background:#203650;color:white;border:1px solid #38516e;border-radius:9px;padding:7px 9px;font-size:11px;max-width:220px}
+    main{max-width:1660px;margin:0 auto;padding:24px 20px 38px;width:100%;flex:1}.page-title{text-align:center;margin:18px auto 27px}.page-title h2{font-size:25px;margin:0 0 5px;color:#1e293b}.page-title p{margin:0;color:var(--muted)}.module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:900px;margin:0 auto}.module-card{background:white;border:1px solid var(--line);border-radius:19px;padding:25px;box-shadow:0 5px 16px #0f172a08;transition:.18s;cursor:pointer;text-align:left}.module-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#93c5fd}.module-icon{width:52px;height:52px;border-radius:15px;background:#e7efff;display:grid;place-items:center;font-size:24px;margin-bottom:15px}.module-card h3{font-size:18px;margin:0 0 7px}.module-card p{font-size:13px;color:var(--muted);margin:0 0 17px}.module-link{color:#2563eb;font-weight:800;font-size:12px}
+    .panel{background:white;border:1px solid var(--line);border-radius:17px;box-shadow:0 5px 18px #0f172a08}.toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:14px 16px;margin-bottom:15px}.toolbar-group{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.toolbar label{font-size:12px;font-weight:750;color:#475569}.toolbar select,.toolbar input{border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:8px 10px;font-size:12px}.status-pill{border-radius:99px;padding:7px 10px;font-size:11px;font-weight:800}.status-open{background:#dcfce7;color:#166534}.status-locked{background:#fee2e2;color:#991b1b}.class-strip{background:#1e314b;border-radius:14px;padding:10px;display:flex;gap:7px;overflow:auto;margin-bottom:15px}.class-btn{padding:8px 12px;border-radius:9px;background:#304761;color:#e2e8f0;font-size:12px;font-weight:750;white-space:nowrap}.class-btn.active,.class-btn:hover{background:#2563eb;color:white}.table-panel{overflow:hidden}.table-head{padding:15px 16px;background:#f8fafc;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.table-head h3{font-size:16px;margin:0}.table-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.table-tools input{border:1px solid #cbd5e1;padding:8px 10px;border-radius:9px;font-size:12px;width:170px}.table-scroll{overflow:auto;max-height:66vh;position:relative}.grade-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}.grade-table th,.grade-table td{padding:9px 8px;border-right:1px solid #e8edf3;border-bottom:1px solid #e8edf3;text-align:center;white-space:nowrap;background:white}.grade-table th{position:sticky;top:0;z-index:5;background:#f1f5f9;color:#475569;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.grade-table th:first-child,.grade-table td:first-child{position:sticky;left:0;z-index:7;text-align:left;min-width:225px}.grade-table th:first-child{z-index:9;background:#eaf0f7}.grade-table td:first-child{background:#fff;font-weight:700}.grade-table tr:hover td{background:#f8fbff}.grade-table tr:hover td:first-child{background:#f1f7ff}.grade-input{width:53px;text-align:center;border:1px solid #cbd5e1;border-radius:8px;padding:7px 3px;font-weight:800;font-size:12px;outline:none;transition:.12s}.grade-input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.grade-low{background:#fee2e2;color:#991b1b;border-color:#fecaca}.grade-mid{background:#dbeafe;color:#1e40af;border-color:#bfdbfe}.grade-good{background:#dcfce7;color:#166534;border-color:#bbf7d0}.grade-neutral{background:#f8fafc;color:#334155}.cell-status{display:block;min-height:13px;font-size:9px;color:#64748b;margin-top:2px}.obs-btn{width:25px;height:25px;border-radius:7px;color:#64748b;background:transparent;position:relative}.obs-btn:hover{background:#eaf2ff;color:#2563eb}.obs-btn.has-text:after{content:'';position:absolute;width:6px;height:6px;border-radius:50%;background:#2563eb;right:2px;top:2px;box-shadow:0 0 0 2px white}.tooltip-float{position:fixed;z-index:5000;max-width:280px;min-width:190px;background:#13243a;color:white;border:1px solid #3a526f;border-radius:10px;padding:10px 12px;font-size:11px;line-height:1.5;box-shadow:0 10px 28px #0004;pointer-events:none;display:none;white-space:normal}.tooltip-float strong{color:#bfdbfe}
+    .modal-backdrop{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;background:#0b1728a8;backdrop-filter:blur(3px)}.modal{background:white;border-radius:18px;box-shadow:0 25px 70px #0004;border:1px solid #e2e8f0;width:min(100%,680px);max-height:91vh;display:flex;flex-direction:column;overflow:hidden}.modal.wide{width:min(100%,930px)}.modal.small{width:min(100%,430px)}.modal-head{padding:15px 20px;background:var(--navy);color:white;display:flex;justify-content:space-between;align-items:center;gap:10px}.modal-head h3{font-size:15px;margin:0}.modal-head button{background:transparent;color:white;font-size:20px}.modal-body{padding:20px;overflow:auto}.modal-foot{padding:13px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.section-card{border:1px solid var(--line);border-radius:13px;padding:14px;margin:0 0 14px}.section-card h4{font-size:13px;margin:0 0 10px}.section-card p{color:var(--muted);font-size:11px;margin:0 0 10px}.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.check-item{display:flex;align-items:center;justify-content:space-between;padding:9px 10px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;font-size:11px;font-weight:750}.check-item input{accent-color:#0f766e}.user-list-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0 4px;font-size:11px;color:#475569}.user-list-tools label{display:flex;align-items:center;gap:6px;font-weight:750}.user-list-tools input{accent-color:#2563eb}.user-select{accent-color:#2563eb;flex:none}.user-list{list-style:none;margin:8px 0 0;padding:0;border:1px solid var(--line);border-radius:11px;max-height:180px;overflow:auto}.user-list li{padding:9px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #edf1f5;font-size:11px}.user-list li:last-child{border-bottom:0}.user-actions{display:flex;gap:5px}.mini-btn{font-size:10px;font-weight:800;border-radius:7px;padding:6px 8px;background:#eaf0f7;color:#334155}.mini-btn.danger{background:#fee2e2;color:#991b1b}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:15px 0}.stat{padding:13px 8px;border-radius:12px;text-align:center;border:1px solid var(--line);background:#f8fafc}.stat b{display:block;font-size:21px}.stat span{font-size:10px;color:#64748b;font-weight:750}.stat.red{background:#fff1f2;border-color:#fecdd3;color:#be123c}.stat.amber{background:#fffbeb;border-color:#fde68a;color:#b45309}.stat.green{background:#ecfdf5;border-color:#a7f3d0;color:#047857}.stat.blue{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}.stat.gray{display:none}.chart-box{border:1px solid var(--line);border-radius:13px;padding:14px;background:#fff}.chart-box h4{font-size:12px;margin:0 0 8px}.chart-canvas{width:100%;height:185px;display:block}.history-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.history-item{padding:10px;border:1px solid var(--line);border-radius:10px;text-align:center;background:#f8fafc}.history-item strong{display:block;font-size:18px}.history-item span{font-size:10px;color:var(--muted)}.data-table{width:100%;border-collapse:collapse;font-size:11px}.data-table th,.data-table td{text-align:left;padding:8px;border-bottom:1px solid #edf1f5}.data-table th{color:#64748b;text-transform:uppercase;font-size:9px}.empty{padding:25px;text-align:center;color:#94a3b8;font-size:12px}.notice{position:fixed;inset:0;background:#0b1728a8;z-index:300;display:flex;align-items:center;justify-content:center;padding:16px}.notice-card{background:white;border-radius:16px;padding:23px;width:min(100%,410px);text-align:center;box-shadow:0 20px 60px #0004}.notice-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:#e0f2fe;color:#0369a1;margin:0 auto 10px}.notice h3{font-size:16px;margin:0 0 7px}.notice p{font-size:12px;color:#64748b;margin:0 0 18px;white-space:pre-wrap}.credential-box{background:#f1f5f9;border:1px dashed #94a3b8;border-radius:10px;padding:12px;margin:10px 0;font-family:ui-monospace,monospace;font-size:15px;word-break:break-all}.footer{padding:16px;text-align:center;background:#14243a;color:#9fb0c5;font-size:10px;margin-top:auto}.footer a{color:#93c5fd;text-decoration:none}.loading-bar{height:3px;background:#dbeafe;overflow:hidden;border-radius:20px}.loading-bar:after{content:'';display:block;width:35%;height:100%;background:#2563eb;animation:load 1.2s ease-in-out infinite}.admin-loading{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 0 12px;border-radius:10px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:750}.mini-spinner{width:17px;height:17px;border:3px solid #bfdbfe;border-top-color:#2563eb;border-radius:50%;animation:spin .8s linear infinite;flex:none}.master-school-list{max-height:190px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:9px}.master-school-row{display:flex;justify-content:space-between;gap:10px;padding:8px;border-bottom:1px solid #edf1f5;font-size:11px}.master-school-row:last-child{border-bottom:0}.pin-error{color:#b91c1c;font-size:11px;min-height:16px;margin-top:5px}.modal-backdrop{z-index:6000;background:rgba(8,18,34,.68);backdrop-filter:blur(4px)}.modal-backdrop.modal-top{z-index:6100}#modal-pin-master{z-index:6300}#modal-pin-usuario{z-index:6310}.notice{z-index:6200}.online-users{display:flex;align-items:center;gap:4px}.online-user-chip{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#294c70;border:1px solid #6a88a7;color:#fff;font-size:9px;font-weight:850;cursor:default}.online-count{font-size:10px;color:#cbd5e1;white-space:nowrap}.btn.is-saving{display:inline-flex;align-items:center;gap:8px;opacity:.88}.btn.is-saving:before{content:"";width:13px;height:13px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite}.confirm-text{font-size:13px;line-height:1.6;color:#475569;white-space:pre-wrap}.export-loading{opacity:.65;pointer-events:none}@keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+    @media(max-width:850px){.header-inner{align-items:flex-start;flex-direction:column}.user-area{width:100%;justify-content:space-between;flex-wrap:wrap}.module-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.table-scroll{max-height:62vh}}
+    @media(max-width:560px){main{padding:16px 10px 25px}.brand p{max-width:80vw}.toolbar{align-items:flex-start}.toolbar-group{width:100%}.toolbar-group>*{flex:1}.two-col{grid-template-columns:1fr}.history-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.modal-body{padding:14px}.modal-head{padding:13px 15px}.table-head{padding:12px}.table-tools input{width:145px}.school-select{max-width:100%}}
+    @media print{body{background:white}.no-print{display:none!important}.modal-backdrop{position:static;background:white;padding:0}.modal{width:100%;max-height:none;box-shadow:none;border:0}.modal-body{overflow:visible}}
+    .logo-login{display:block;width:auto;height:100px;max-width:100%;object-fit:contain;margin:0 auto 18px}.logo-header{display:block;width:auto;height:70px;max-height:70px;max-width:min(220px,32vw);object-fit:contain;flex:none}.brand-mark{display:grid;place-items:center}.grade-advanced{background:#dbeafe;color:#1d4ed8;border-color:#bfdbfe}.grade-mid{background:#fef3c7;color:#92400e;border-color:#fde68a}.history-grade{font-size:17px!important;font-weight:900!important;text-align:center!important;min-width:76px;padding:10px 9px!important;border-radius:5px}.discipline-admin-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:12px 0}.discipline-admin-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #e2e8f0;border-radius:10px;padding:8px 10px;background:#f8fafc}.discipline-admin-row span{font-size:12px;font-weight:750;overflow-wrap:anywhere}.discipline-admin-row div{display:flex;gap:5px;flex:none}.discipline-admin-row .mini-btn{padding:5px 7px;font-size:10px}.student-name-wrap{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:210px}.student-admin-actions{display:flex;gap:5px;flex-wrap:wrap}.student-admin-actions .mini-btn{padding:4px 6px;font-size:9px}.table-export-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.grade-table td:first-child{min-width:250px}.export-note{font-size:10px;color:#64748b}@media print{@page{size:A4 landscape;margin:10mm}.grade-table{font-size:9px}.grade-table th,.grade-table td{padding:5px}.student-admin-actions,.obs-btn,.cell-status{display:none!important}}
+
+    /* Ajustes pontuais de legibilidade e alinhamento da V6 */
+    #ficha-nome-aluno{font-size:19px!important;line-height:1.3;font-weight:850}
+    #ficha-turma-bimestre{font-size:13px!important;line-height:1.5}
+    #ficha-media-aluno,#ficha-media-turma{font-size:32px!important;line-height:1.1;font-weight:900}
+    #conteudo-ficha-aluno .section-card p{font-size:13px;line-height:1.45}
+    #lista-checkbox-disciplinas{display:flex;flex-direction:column;gap:4px}
+    #lista-checkbox-disciplinas .discipline-filter-option{display:flex;align-items:center;gap:9px;padding:7px 6px;border-radius:8px;min-height:33px;cursor:pointer;line-height:1.3;font-size:12px;font-weight:650;color:#334155}
+    #lista-checkbox-disciplinas .discipline-filter-option:hover{background:#f1f5f9}
+    #lista-checkbox-disciplinas .discipline-filter-option input{width:15px;height:15px;flex:none;margin:0;accent-color:#2563eb}
+    #lista-checkbox-disciplinas .discipline-filter-option span{display:block;min-width:0;white-space:normal}
+
+    .pedagogical-indicators{margin-top:16px;padding:16px;background:#f8fafc;border:1px solid #dbe4ef;border-radius:14px}
+    .pedagogical-indicators-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .pedagogical-indicators-head h4{font-size:15px;margin:0;color:#1e293b}
+    .indicator-status{font-size:11px;color:#64748b;font-weight:700}
+    .indicator-status.loading:before{content:'';display:inline-block;width:10px;height:10px;margin-right:7px;border:2px solid #bfdbfe;border-top-color:#2563eb;border-radius:50%;vertical-align:-1px;animation:spin .8s linear infinite}
+    .indicator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .indicator-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;min-width:0}
+    .indicator-card.wide{grid-column:1/-1}
+    .indicator-card h5{font-size:12px;color:#334155;margin:0 0 10px;font-weight:850}
+    .indicator-table-wrap{overflow:auto}
+    .indicator-table{width:100%;border-collapse:collapse;font-size:11px}
+    .indicator-table th,.indicator-table td{padding:8px 7px;border-bottom:1px solid #edf1f5;text-align:left;vertical-align:top}
+    .indicator-table th{font-size:9px;color:#64748b;text-transform:uppercase;white-space:nowrap}
+    .indicator-coverage{min-width:110px}
+    .indicator-coverage strong{font-size:11px;color:#0f766e}
+    .indicator-track{height:6px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-top:4px}
+    .indicator-track span{display:block;height:100%;background:#0f766e;border-radius:99px}
+    .indicator-teachers{display:grid;gap:4px;min-width:190px}
+    .indicator-teachers div{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:#475569}
+    .indicator-teachers b{white-space:nowrap;color:#334155}
+    .indicator-list{display:grid;gap:7px}
+    .indicator-list-item{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:7px 8px;background:#f8fafc;border:1px solid #edf1f5;border-radius:8px;font-size:11px}
+    .indicator-list-item strong{white-space:nowrap}
+    .indicator-empty{font-size:11px;color:#64748b;padding:8px 2px}
+    .indicator-footnote{font-size:10px;color:#64748b;margin:10px 0 0;line-height:1.45}
+    #grafico-evolucao-turma{height:170px}
+    @media(max-width:700px){.indicator-grid{grid-template-columns:1fr}.indicator-card.wide{grid-column:auto}}
+
+  
+    /* Correções pontuais da V11: modal de disciplina em primeiro plano e legibilidade. */
+    #modal-disciplina.modal-backdrop{z-index:6400!important;background:rgba(8,18,34,.76)!important;backdrop-filter:blur(4px)}
+    .modal-backdrop .tiny,
+    .modal-backdrop .section-card p,
+    .modal-backdrop .indicator-status,
+    .modal-backdrop .indicator-footnote,
+    .modal-backdrop .indicator-empty,
+    .modal-backdrop .indicator-list-item,
+    .modal-backdrop .indicator-teachers div,
+    .modal-backdrop .indicator-coverage strong,
+    .modal-backdrop .stat span,
+    .modal-backdrop .data-table,
+    .modal-backdrop .user-list li,
+    .modal-backdrop .master-school-row,
+    .modal-backdrop .check-item{font-size:12px!important;color:#475569}
+    .modal-backdrop .indicator-table{font-size:12px!important;color:#334155}
+    .modal-backdrop .indicator-table th,
+    .modal-backdrop .data-table th{font-size:12px!important;color:#334155}
+    .modal-backdrop .chart-box h4{font-size:13px!important;color:#1e293b}
+    #modal-graficos .modal-body>.tiny{font-size:12px!important;color:#475569;line-height:1.55}
+    #modal-graficos .pedagogical-indicators-head h4{font-size:15px;color:#1e293b}
+    #modal-graficos .indicator-footnote{font-size:12px!important;color:#475569;line-height:1.55}
+    /* Painel Master: grade simétrica para as opções de limpeza. */
+    #master-limpeza-tipos.master-clean-options,
+    #master-limpeza-bimestre-wrap .master-clean-bimesters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:10px}
+    #master-limpeza-tipos.master-clean-options>.check-item,
+    #master-limpeza-bimestre-wrap .master-clean-bimesters>.check-item{display:grid;grid-template-columns:minmax(0,1fr) 18px;align-items:center;gap:12px;width:100%;height:100%;min-height:58px;margin:0;padding:11px 13px;line-height:1.35;text-align:left}
+    #master-limpeza-tipos.master-clean-options>.check-item>span,
+    #master-limpeza-bimestre-wrap .master-clean-bimesters>.check-item>span{display:block;min-width:0;overflow-wrap:anywhere}
+    #master-limpeza-tipos.master-clean-options>.check-item input,
+    #master-limpeza-bimestre-wrap .master-clean-bimesters>.check-item input{width:16px;height:16px;margin:0;justify-self:center;flex:none}
+    #master-limpeza-tipos.master-clean-options>.check-item:last-child:nth-child(odd){grid-column:1/-1}
+    #master-limpeza-bimestre-wrap .master-clean-all-bimesters{grid-column:1/-1;background:#eef5ff;border-color:#c8dcfb}
+    #master-limpeza-bimestre-wrap .master-clean-all-bimesters small{display:block;margin-top:3px;font-size:11px;font-weight:500;color:#53677f}
+    @media(max-width:640px){#master-limpeza-tipos.master-clean-options,#master-limpeza-bimestre-wrap .master-clean-bimesters{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+  <div id="splashscreen" class="splash"><div class="splash-inner"><div class="school-mark">🏫</div><h2>Portal de Notas e Acompanhamento Pedagógico</h2><p>Preparando seu ambiente de trabalho</p><div class="spinner"></div></div></div>
+
+  <section id="tela-login" class="login-screen logo-active hidden">
+    <div class="login-card">
+      <img id="logo-login" class="logo-login" src="https://plain-enam-prod-public.komododecks.com/202611/02/V01P6deeDqFl1l4xB2JJ/image.jpg" alt="Logo da plataforma" fetchpriority="high" decoding="async"><div id="login-icon-fallback" class="login-icon hidden">📚</div>
+      <h1 id="login-title">Portal de Notas e Acompanhamento Pedagógico</h1>
+      <p id="login-description">Entre com o e-mail previamente autorizado para sua unidade escolar.</p>
+      <form id="form-login" novalidate>
+        <div class="field"><label for="input-login-email">E-mail cadastrado</label><input type="email" id="input-login-email" autocomplete="username" placeholder="seu email"></div>
+        <label class="remember"><input type="checkbox" id="lembrar-acesso" checked> Manter meu acesso neste dispositivo</label>
+        <button id="btn-login" class="btn btn-primary btn-block" type="submit">Entrar na plataforma <span>→</span></button>
+      </form>
+      <p class="tiny" style="margin:17px 0 0">Somente e-mails cadastrados e vinculados a uma escola podem acessar o portal.</p>
+    </div>
+  </section>
+
+  <!-- Modal seguro do proprietário -->
+  <div id="modal-pin-master" class="modal-backdrop modal-top hidden"><div class="modal small"><div class="modal-head"><h3>🔐 Acesso do proprietário</h3><button type="button" onclick="cancelarPinMaster()">×</button></div><div class="modal-body"><p class="tiny">Confirme o PIN master para liberar a administração global do portal.</p><div class="field"><label for="input-pin-master">PIN do proprietário</label><input id="input-pin-master" type="password" autocomplete="current-password" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" oninput="this.value=this.value.replace(/\D/g,'').slice(0,6)" placeholder="Digite os 6 dígitos" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmarPinMaster();}"></div><div id="erro-pin-master" class="pin-error" aria-live="polite"></div><button id="btn-confirmar-pin-master" class="btn btn-primary btn-block" type="button" onclick="confirmarPinMaster()">Validar PIN</button></div></div></div>
+  <div id="modal-pin-usuario" class="modal-backdrop modal-top hidden" aria-hidden="true"><div class="modal small"><div class="modal-head"><h3 id="titulo-pin-usuario">🔐 PIN de acesso</h3><button type="button" onclick="cancelarPinUsuario()">×</button></div><div class="modal-body"><p id="texto-pin-usuario" class="tiny">Informe seu PIN pessoal de quatro dígitos.</p><div class="field"><label for="input-pin-usuario">PIN de 4 dígitos</label><input id="input-pin-usuario" type="password" autocomplete="current-password" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" placeholder="••••" oninput="this.value=this.value.replace(/\D/g,'').slice(0,4)" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmarPinUsuario();}"></div><div class="field hidden" id="campo-confirmar-pin-usuario"><label for="input-confirmar-pin-usuario">Confirme o novo PIN</label><input id="input-confirmar-pin-usuario" type="password" autocomplete="new-password" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" placeholder="Repita os quatro dígitos" oninput="this.value=this.value.replace(/\D/g,'').slice(0,4)" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmarPinUsuario();}"></div><div id="erro-pin-usuario" class="pin-error" aria-live="polite"></div><button id="btn-confirmar-pin-usuario" class="btn btn-primary btn-block" type="button" onclick="confirmarPinUsuario()">Validar PIN</button></div></div></div>
+
+  <header id="app-header" class="hidden">
+    <div class="header-inner">
+      <div class="brand logo-active" id="header-brand"><div id="header-logo-fallback" class="brand-mark hidden">📚</div><img id="logo-header" class="logo-header" src="https://plain-enam-prod-public.komododecks.com/202611/02/V01P6deeDqFl1l4xB2JJ/image.jpg" alt="Logo da plataforma" decoding="async"><div><h1 id="header-app-title">Portal de Notas e Acompanhamento Pedagógico</h1><p id="nome-escola-header">Escola selecionada</p></div></div>
+      <div class="user-area"><select id="seletor-escola" class="school-select hidden" aria-label="Trocar escola" onchange="trocarEscolaSelecionada()"></select><span id="online-users" class="online-users" aria-label="Usuários online"></span><span class="user-pill" id="user-email-display">usuário</span><button id="btn-painel-master" class="btn btn-amber hidden" onclick="abrirPainelMaster()">Painel Master</button><button class="btn btn-soft" onclick="fazerLogout()">Sair ↗</button></div>
+    </div>
+  </header>
+
+  <main id="app-main" class="hidden">
+    <section id="area-balizadora">
+      <div class="panel toolbar no-print">
+        <div class="toolbar-group"><label for="seletor-bimestre">Bimestre</label><select id="seletor-bimestre" onchange="aoTrocarBimestre()"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option></select><span id="status-bimestre" class="status-pill status-open">Carregando…</span></div>
+        <div class="toolbar-group"><button class="btn btn-green" onclick="abrirModalReuniaoPais()">👥 Reunião de pais</button><button id="btn-painel-adm" class="btn btn-amber hidden" onclick="abrirPainelAdm()">⚙ Administração</button></div>
+      </div>
+      <div id="container-botoes-turmas" class="class-strip no-print"></div>
+      <div class="panel table-panel">
+        <div class="table-head"><h3 id="nome-turma-selecionada">Selecione uma turma</h3><div class="table-tools no-print"><button class="btn btn-primary" onclick="abrirModalGraficos()">▥ Análise da turma</button><div style="position:relative"><button class="btn btn-soft" onclick="toggleFiltroDisciplinas(event)">Filtrar disciplinas ▾</button><div id="dropdown-disciplinas" class="panel hidden" style="position:absolute;right:0;top:42px;width:240px;z-index:25;padding:12px;max-height:280px;overflow:auto"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><button class="text-button" onclick="marcarTodasDisciplinas(true)">Todas</button><button class="text-button" onclick="marcarTodasDisciplinas(false)">Nenhuma</button></div><div id="lista-checkbox-disciplinas"></div></div></div><input id="busca-aluno" type="search" placeholder="Buscar aluno…" oninput="filtrarAlunos()"><div class="table-export-actions"><button class="btn btn-soft" onclick="exportarNotasPDF()">⇩ PDF</button><button class="btn btn-soft" onclick="exportarNotasExcel()">⇩ Excel</button></div><button class="btn btn-soft" onclick="abrirModalAddAluno()">＋ Alunos</button><button id="btn-add-disciplina-turma" class="btn btn-soft hidden" type="button" onclick="abrirModalAdicionarDisciplinaTurma()">＋ Disciplina</button></div></div>
+        <div id="loading-tabela" class="hidden" style="padding:10px 15px"><div class="loading-bar"></div></div>
+        <div class="table-scroll"><table class="grade-table"><thead id="header-tabela"><tr><th>Nome do estudante</th></tr></thead><tbody id="body-tabela"><tr><td class="empty">Selecione uma turma para carregar os dados.</td></tr></tbody></table></div>
+      </div>
+      <p class="tiny" style="margin:9px 4px">As alterações são salvas automaticamente. Notas permitidas: números inteiros de 1 a 10; nota zero não é aceita. Use Ctrl + V sobre uma célula para colar uma nota ou uma matriz de notas.</p>
+    </section>
+  </main>
+
+  <footer id="app-footer" class="footer hidden"><div id="footer-brand-text">Sistema de acompanhamento pedagógico — uso autorizado às escolas cadastradas</div><div><span id="ano-atual"></span> | Criado e Desenvolvido por <strong>Pedro Costa</strong> · <a href="mailto:desenvolvedorpedrocosta@gmail.com">desenvolvedorpedrocosta@gmail.com</a></div></footer>
+  <div id="tooltip-flutuante" class="tooltip-float"></div>
+
+  <!-- Modal: seleção de escola -->
+  <div id="modal-escolha-escola" class="modal-backdrop hidden"><div class="modal small"><div class="modal-head"><h3>Selecione a escola</h3><button onclick="fecharModal('modal-escolha-escola')">×</button></div><div class="modal-body"><p class="tiny">Seu acesso está vinculado a mais de uma unidade.</p><div class="field"><label>Unidade escolar</label><select id="lista-escolas-login"></select></div><button class="btn btn-primary btn-block" onclick="confirmarEscolaLogin()">Continuar</button></div></div></div>
+
+  <!-- Modal: reunião e histórico longitudinal -->
+  <div id="modal-reuniao-pais" class="modal-backdrop hidden"><div class="modal wide"><div class="modal-head"><h3>👥 Ficha individual — reunião de pais e responsáveis</h3><button onclick="fecharModal('modal-reuniao-pais')">×</button></div><div class="modal-body"><div class="field"><label>Estudante</label><select id="seletor-aluno-reuniao" onchange="carregarFichaAluno()"><option value="">Selecione um estudante</option></select></div><div id="conteudo-ficha-aluno" class="hidden"><div class="two-col"><div class="section-card"><h4 id="ficha-nome-aluno">Estudante</h4><p id="ficha-turma-bimestre"></p><div id="badge-proficiencia-aluno" class="status-pill status-open">Em acompanhamento</div></div><div class="section-card" style="display:flex;justify-content:space-around;align-items:center;text-align:center"><div><b id="ficha-media-aluno" style="font-size:25px;color:#1d4ed8">—</b><p>Média do estudante</p></div><div><b id="ficha-media-turma" style="font-size:25px">—</b><p>Média da turma</p></div></div></div>
+      <div class="chart-box" style="margin:12px 0"><h4>Evolução da média por bimestre — ano letivo <span id="ano-historico"></span></h4><canvas id="grafico-historico" class="chart-canvas"></canvas></div>
+      <div class="section-card"><h4>Desempenho por disciplina e bimestre</h4><div style="overflow:auto"><table class="data-table"><thead id="thead-historico"><tr><th>Disciplina</th></tr></thead><tbody id="tbody-historico"></tbody></table></div></div>
+    </div></div></div></div>
+
+  <!-- Modal: proficiência -->
+  <div id="modal-graficos" class="modal-backdrop hidden"><div class="modal wide"><div class="modal-head"><h3>▥ Análise de proficiência da turma</h3><div style="display:flex;gap:8px;align-items:center"><button class="btn btn-soft no-print" onclick="gerarPDFProficiencia()">⇩ Baixar relatório</button><button onclick="fecharModal('modal-graficos')">×</button></div></div><div class="modal-body"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><p class="tiny" id="subtitulo-proficiencia"></p><div class="toolbar-group no-print"><button id="btn-visao-grupos" class="btn btn-primary" onclick="alternarVisaoProficiencia('grupos')">Visão por faixas</button><button id="btn-visao-individual" class="btn btn-soft" onclick="alternarVisaoProficiencia('individual')">Visão individual</button></div></div><div class="stat-grid"><div class="stat red"><b id="prof-count-insuficiente">0</b><span>Abaixo de 5,0</span></div><div class="stat amber"><b id="prof-count-basico">0</b><span>5,0 a 6,9</span></div><div class="stat green"><b id="prof-count-proficiente">0</b><span>7,0 a 8,9</span></div><div class="stat blue"><b id="prof-count-avancado">0</b><span>9,0 a 10</span></div></div><div class="chart-box"><h4>Distribuição dos estudantes por faixa</h4><canvas id="grafico-proficiencia" class="chart-canvas"></canvas></div><div id="conteudo-proficiencia" class="section-card" style="margin-top:14px"></div>
+      <section id="painel-indicadores-pedagogicos" class="pedagogical-indicators">
+        <div class="pedagogical-indicators-head"><h4>Indicadores pedagógicos adicionais</h4><span id="indicadores-pedagogicos-status" class="indicator-status">Aguardando dados…</span></div>
+        <div class="indicator-grid">
+          <article class="indicator-card wide"><h5>1. Cobertura de lançamentos por disciplina e professor</h5><div class="indicator-table-wrap"><table class="indicator-table"><thead><tr><th>Disciplina</th><th>Notas lançadas</th><th>Cobertura da turma</th><th>Por professor (autor do último lançamento)</th></tr></thead><tbody id="tabela-cobertura-indicadores"><tr><td colspan="4" class="indicator-empty">Carregando…</td></tr></tbody></table></div></article>
+          <article class="indicator-card"><h5>2. Evolução bimestral da média da turma</h5><canvas id="grafico-evolucao-turma" class="chart-canvas"></canvas><p class="indicator-footnote">Média calculada com os últimos lançamentos válidos de todas as disciplinas da turma em cada bimestre.</p></article>
+          <article class="indicator-card"><h5>3. Disciplinas em alerta — maior percentual abaixo de 5,0</h5><div id="lista-disciplinas-alerta" class="indicator-list"><div class="indicator-empty">Carregando…</div></div></article>
+          <article class="indicator-card wide"><h5>4. Estudantes sem registros no bimestre selecionado</h5><div id="lista-estudantes-sem-registro" class="indicator-list"><div class="indicator-empty">Carregando…</div></div></article>
+        </div>
+        <p class="indicator-footnote">A cobertura por disciplina considera uma nota esperada por estudante ativo. O percentual por professor usa o total de estudantes da turma como denominador e identifica o autor do último lançamento válido de cada estudante/disciplina; por isso, percentuais de professores diferentes não precisam somar 100%.</p>
+      </section>
+      <p class="tiny">As faixas são indicadores internos de acompanhamento pedagógico. Não representam, por si só, classificação oficial de proficiência.</p></div></div></div>
+
+  <!-- Modal: cadastro de alunos -->
+  <div id="modal-add-aluno" class="modal-backdrop hidden"><div class="modal small"><div class="modal-head"><h3>Adicionar estudantes à turma</h3><button onclick="fecharModal('modal-add-aluno')">×</button></div><div class="modal-body">
+    <label class="check-item" style="margin-bottom:14px"><span><b>Ordenar a turma em ordem alfabética</b><small style="display:block;color:#64748b;font-weight:500">Marcado: reorganiza todos os estudantes pelo nome. Desmarcado: preserva a ordem atual e acrescenta os novos ao final.</small></span><input type="checkbox" id="ordenar-alunos-alfabeticamente"></label>
+    <div class="section-card" style="margin-bottom:12px"><h4 style="margin-top:0">Adicionar um estudante</h4><div class="field"><label for="nome-novo-aluno-individual">Nome completo</label><input id="nome-novo-aluno-individual" maxlength="180" placeholder="Digite o nome do estudante"></div><button id="btn-confirmar-add-aluno-individual" class="btn btn-soft btn-block" onclick="confirmarAddAlunoIndividual()">＋ Adicionar estudante</button></div>
+    <div class="field"><label for="lista-novos-alunos">Adicionar vários estudantes — um nome por linha</label><textarea id="lista-novos-alunos" rows="6" placeholder="Cole aqui a relação de estudantes…"></textarea></div><button id="btn-confirmar-add-alunos" class="btn btn-primary btn-block" onclick="confirmarAddAlunosEmLote()">Salvar estudantes</button>
+  </div></div></div>
+
+  <!-- Modal: editar estudante -->
+  <div id="modal-editar-aluno" class="modal-backdrop hidden"><div class="modal small"><div class="modal-head"><h3>Editar nome do estudante</h3><button onclick="fecharModal('modal-editar-aluno')">×</button></div><div class="modal-body"><div class="field"><label for="novo-nome-aluno">Nome completo</label><input id="novo-nome-aluno" maxlength="180"></div><button class="btn btn-primary btn-block" onclick="salvarEdicaoAluno()">Salvar alteração</button></div></div></div>
+  <!-- Modal: confirmar exclusão -->
+  <div id="modal-confirmar-exclusao-aluno" class="modal-backdrop hidden"><div class="modal small"><div class="modal-head"><h3>Retirar estudante da turma?</h3><button onclick="fecharModal('modal-confirmar-exclusao-aluno')">×</button></div><div class="modal-body"><p id="texto-confirmar-exclusao-aluno" class="tiny">O estudante será retirado da lista ativa. As notas e o histórico serão preservados.</p><div style="display:flex;justify-content:flex-end;gap:8px"><button class="btn btn-soft" onclick="fecharModal('modal-confirmar-exclusao-aluno')">Cancelar</button><button class="btn btn-red" onclick="confirmarExclusaoAluno()">Confirmar exclusão</button></div></div></div></div>
+
+  <!-- Modal: observação -->
+  <div id="modal-obs" class="modal-backdrop hidden"><div class="modal small"><div class="modal-head"><h3>Observação pedagógica da nota</h3><button onclick="fecharModal('modal-obs')">×</button></div><div class="modal-body"><p id="info-obs-aluno" class="tiny"></p><div class="field"><label>Registro / justificativa</label><textarea id="texto-obs" rows="5" maxlength="2000" placeholder="Descreva o contexto da avaliação, a atividade ou outro registro relevante…"></textarea></div><div id="detalhes-obs-existente" class="tiny"></div><button id="btn-excluir-modal-obs" class="btn btn-red btn-block hidden" style="margin:8px 0" onclick="excluirObservacaoModal()">Excluir observação</button><button id="btn-salvar-modal-obs" class="btn btn-primary btn-block" onclick="salvarObservacaoModal()">Salvar observação</button></div></div></div>
+  <div id="modal-disciplina" class="modal-backdrop hidden"><div class="modal small"><div class="modal-head"><h3 id="titulo-modal-disciplina">Adicionar disciplina</h3><button type="button" onclick="fecharModal('modal-disciplina')">×</button></div><div class="modal-body"><div class="field"><label for="nome-nova-disciplina">Nome da disciplina</label><input id="nome-nova-disciplina" maxlength="80" placeholder="Ex.: MATEMÁTICA"></div><button id="btn-salvar-modal-disciplina" class="btn btn-primary btn-block" onclick="salvarDisciplinaModal()">Salvar disciplina</button></div></div></div>
+
+  <!-- Modal: administração -->
+  <div id="modal-adm" class="modal-backdrop hidden"><div class="modal wide"><div class="modal-head"><h3>⚙ Administração da unidade escolar</h3><button onclick="fecharModal('modal-adm')">×</button></div><div class="modal-body">
+    <div id="adm-loading" class="admin-loading hidden"><span class="mini-spinner"></span><span>Atualizando as informações administrativas…</span></div>
+    <div class="section-card"><h4>Identificação da escola</h4><div class="field"><label>Nome exibido no portal e nos relatórios</label><input id="adm-nome-escola" maxlength="180"></div><button id="btn-adm-salvar-nome" class="btn btn-primary" onclick="salvarNomeEscola()">Atualizar nome da escola</button><p class="tiny" style="margin-top:7px">A identidade visual da plataforma é gerenciada exclusivamente pelo Painel Master.</p></div>
+    <div class="section-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h4 style="margin:0">Disciplinas por turma</h4><button type="button" class="btn btn-green" onclick="abrirModalAdicionarDisciplina()">＋ Disciplina</button></div><p>Administradores da unidade e master podem adicionar, editar e retirar disciplinas. O histórico de notas anteriores permanece preservado.</p><div class="field"><label>Turma</label><select id="adm-turma-disciplinas"></select></div><div id="lista-disciplinas-admin" class="discipline-admin-list"><div class="tiny">Selecione uma turma para carregar as disciplinas.</div></div><details><summary class="tiny" style="cursor:pointer;font-weight:750;margin:8px 0">Cadastro ou substituição em lote</summary><div class="field"><label>Disciplinas (separe por vírgula, ponto e vírgula ou nova linha)</label><textarea id="lista-disciplinas-texto" rows="2" placeholder="LÍNGUA PORTUGUESA, MATEMÁTICA, HISTÓRIA"></textarea></div><button id="btn-adm-salvar-disciplinas" class="btn btn-primary" onclick="salvarDisciplinasLote()">Salvar lista em lote</button></details></div>
+    <div class="section-card"><h4>Permissão de lançamento por bimestre</h4><p>Verde = professores podem lançar e alterar notas. Vermelho = bimestre bloqueado para professores. Administradores mantêm acesso.</p><div class="check-grid"><label class="check-item">1º BIMESTRE <input type="checkbox" id="toggle-b1"></label><label class="check-item">2º BIMESTRE <input type="checkbox" id="toggle-b2"></label><label class="check-item">3º BIMESTRE <input type="checkbox" id="toggle-b3"></label><label class="check-item">4º BIMESTRE <input type="checkbox" id="toggle-b4"></label></div><div class="field"><label>Bimestre que será aberto inicialmente</label><select id="adm-bimestre-ativo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option></select></div><button id="btn-adm-salvar-config" class="btn btn-primary" onclick="salvarConfigGerais()">Salvar configurações</button></div>
+    <div class="two-col"><div class="section-card"><h4>Professores autorizados</h4><div class="field"><label>Adicionar e-mails</label><textarea id="novo-email-professor" rows="3" placeholder="Um e-mail por linha"></textarea></div><button id="btn-adm-add-professor" class="btn btn-green" onclick="addEmailsEmLote('PROFESSOR')">＋ Adicionar professores</button><div class="user-list-tools"><label><input type="checkbox" id="select-all-professores" onchange="selecionarTodosUsuarios('PROFESSOR',this.checked)"> Selecionar Todos</label><button id="btn-remover-selecionados-professores" class="mini-btn danger" type="button" onclick="removerUsuariosSelecionados('PROFESSOR')">Remover selecionados</button></div><ul id="lista-professores" class="user-list"></ul></div><div class="section-card"><h4>Administradores da unidade</h4><div class="field"><label>Adicionar e-mails</label><textarea id="novo-email-adm" rows="3" placeholder="Um e-mail por linha"></textarea></div><button id="btn-adm-add-admin" class="btn btn-amber" onclick="addEmailsEmLote('ADM')">＋ Adicionar administradores</button><div class="user-list-tools"><label><input type="checkbox" id="select-all-adms" onchange="selecionarTodosUsuarios('ADM',this.checked)"> Selecionar Todos</label><button id="btn-remover-selecionados-adms" class="mini-btn danger" type="button" onclick="removerUsuariosSelecionados('ADM')">Remover selecionados</button></div><ul id="lista-adms" class="user-list"></ul></div></div>
+  </div></div></div>
+
+  <!-- Painel Master exclusivo do proprietário -->
+  <div id="modal-master" class="modal-backdrop modal-top hidden"><div class="modal wide"><div class="modal-head"><h3>⚙ Painel Master — proprietário da plataforma</h3><button type="button" onclick="fecharModal('modal-master')">×</button></div><div class="modal-body"><div id="master-loading" class="admin-loading hidden"><span class="mini-spinner"></span><span>Carregando configurações globais…</span></div><div class="section-card"><h4>Painel geral — parâmetros globais de todas as escolas</h4><div class="two-col"><div class="field"><label>Nome da plataforma</label><input id="master-app-name" maxlength="100"></div><div class="field"><label>Título da tela de login</label><input id="master-login-title" maxlength="120"></div><div class="field"><label>Texto de orientação do login</label><input id="master-login-description" maxlength="240"></div><div class="field"><label>Texto do rodapé</label><input id="master-footer-text" maxlength="240"></div><div class="field"><label>URL global da logo (HTTPS)</label><input id="master-logo-url" type="url" placeholder="https://.../logo.png"></div><div class="field"><label>Ano letivo padrão para novas escolas</label><input id="master-default-year" type="number" min="2020" max="2100"></div></div><div style="display:flex;justify-content:flex-end"><button id="btn-salvar-master-config" class="btn btn-primary" onclick="salvarPainelMaster()">Salvar configurações globais</button></div></div><div class="section-card"><h4>Configuração específica da unidade escolar</h4><p>Selecione uma escola para editar somente seu nome, ano letivo, bimestre inicial e bloqueios de lançamento.</p><div class="field"><label for="master-escola-config-select">Unidade escolar</label><select id="master-escola-config-select" onchange="carregarConfiguracaoEscolaMaster(this.value)"></select></div><div class="two-col"><div class="field"><label>Nome da unidade</label><input id="master-escola-config-nome" maxlength="180"></div><div class="field"><label>Ano letivo</label><input id="master-escola-config-ano" type="number" min="2020" max="2100"></div><div class="field"><label>Bimestre inicial</label><select id="master-escola-config-bimestre"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option></select></div></div><div class="check-grid"><label class="check-item">1º BIMESTRE aberto <input type="checkbox" id="master-escola-b1"></label><label class="check-item">2º BIMESTRE aberto <input type="checkbox" id="master-escola-b2"></label><label class="check-item">3º BIMESTRE aberto <input type="checkbox" id="master-escola-b3"></label><label class="check-item">4º BIMESTRE aberto <input type="checkbox" id="master-escola-b4"></label></div><div style="display:flex;justify-content:flex-end;margin-top:10px"><button id="btn-master-salvar-escola-config" class="btn btn-primary" onclick="salvarConfiguracaoEscolaMaster()">Salvar parâmetros da unidade</button></div></div><div class="section-card"><h4>Cadastro e visão global das escolas</h4><div class="two-col"><div class="field"><label>Nome da nova unidade escolar</label><input id="master-nova-escola" maxlength="180" placeholder="Nome completo da escola"></div><div style="display:flex;align-items:end"><button id="btn-master-criar-escola" class="btn btn-green btn-block" onclick="criarEscolaMaster()">＋ Cadastrar escola</button></div></div><div id="master-lista-escolas" class="master-school-list"></div></div><div class="section-card"><h4>Diagnóstico e organização do banco de dados</h4><p id="master-estrutura-resumo" class="tiny">Analisando as tabelas relacionais e as abas antigas…</p><div id="master-estrutura-detalhes" class="tiny"></div><div class="field"><label>Digite <b>CONSOLIDAR USUÁRIOS</b> para unificar cadastros duplicados por e-mail</label><input id="master-consolidar-confirmacao" placeholder="Palavra-chave de confirmação"></div><button id="btn-master-consolidar-usuarios" class="btn btn-amber" onclick="consolidarUsuariosMaster()">Consolidar usuários duplicados</button><div class="divider" style="height:1px;background:#e2e8f0;margin:14px 0"></div><p class="tiny">As abas de turma, <b>_CONFIG_ADM</b> e <b>_NOTAS_OBSERVACOES</b> só são fontes da migração inicial. O arquivamento abaixo renomeia e oculta as abas comprovadamente migradas, sem apagá-las definitivamente. <b>_HISTORICO_NOTAS</b> é preservada para conferência.</p><div class="field"><label>Digite <b>ARQUIVAR ABAS ANTIGAS</b> para confirmar</label><input id="master-arquivar-confirmacao" placeholder="Palavra-chave de confirmação"></div><button id="btn-master-arquivar-legadas" class="btn btn-soft" onclick="arquivarAbasLegadas()">Arquivar abas antigas migradas</button></div><div class="section-card"><h4>Zeragem / Limpeza de Dados por escola</h4><p>Operação exclusiva do master. A limpeza apaga linhas das tabelas relacionais apenas nas unidades selecionadas. Não apaga configurações da escola, turmas, histórico de auditoria nem dados de outras unidades.</p><div class="field"><label>Selecione uma ou mais escolas</label><div id="master-limpeza-escolas" class="check-grid"></div></div><div class="field" id="master-limpeza-bimestre-wrap"><label>1. Primeiro, selecione o(s) bimestre(s) alvo</label><p class="tiny" style="margin:4px 0 8px">A seleção será aplicada somente se você marcar a opção de limpeza de notas logo abaixo.</p><div class="check-grid master-clean-bimesters">
+        <label class="check-item"><span>1º BIMESTRE</span><input type="checkbox" class="master-limpeza-bimestre" value="1º BIMESTRE" onchange="atualizarSelecaoBimestresLimpezaMaster()"></label>
+        <label class="check-item"><span>2º BIMESTRE</span><input type="checkbox" class="master-limpeza-bimestre" value="2º BIMESTRE" onchange="atualizarSelecaoBimestresLimpezaMaster()"></label>
+        <label class="check-item"><span>3º BIMESTRE</span><input type="checkbox" class="master-limpeza-bimestre" value="3º BIMESTRE" onchange="atualizarSelecaoBimestresLimpezaMaster()"></label>
+        <label class="check-item"><span>4º BIMESTRE</span><input type="checkbox" class="master-limpeza-bimestre" value="4º BIMESTRE" onchange="atualizarSelecaoBimestresLimpezaMaster()"></label>
+        <label class="check-item master-clean-all-bimesters"><span><b>Todos os bimestres</b><small>Selecionar os quatro de uma vez</small></span><input type="checkbox" id="master-limpeza-bimestres-todos" onchange="selecionarTodosBimestresLimpezaMaster(this.checked)"></label>
+      </div></div><div class="field"><label>2. Em seguida, escolha o que deseja limpar</label><div id="master-limpeza-tipos" class="check-grid master-clean-options">
+        <label class="check-item"><span>Notas de bimestre(s) selecionado(s)</span><input type="checkbox" class="master-limpeza-tipo" value="NOTAS_BIMESTRE" onchange="atualizarCamposLimpezaMaster(this)"></label>
+        <label class="check-item"><span>Todas as observações pedagógicas</span><input type="checkbox" class="master-limpeza-tipo" value="OBSERVACOES" onchange="atualizarCamposLimpezaMaster(this)"></label>
+        <label class="check-item"><span>Todas as disciplinas</span><input type="checkbox" class="master-limpeza-tipo" value="DISCIPLINAS" onchange="atualizarCamposLimpezaMaster(this)"></label>
+        <label class="check-item"><span>Alunos e todo o histórico associado</span><input type="checkbox" class="master-limpeza-tipo" value="ALUNOS" onchange="atualizarCamposLimpezaMaster(this)"></label>
+        <label class="check-item"><span>Vínculos de administradores</span><input type="checkbox" class="master-limpeza-tipo" value="ADMINISTRADORES" onchange="atualizarCamposLimpezaMaster(this)"></label>
+        <label class="check-item"><span>Vínculos de professores</span><input type="checkbox" class="master-limpeza-tipo" value="PROFESSORES" onchange="atualizarCamposLimpezaMaster(this)"></label>
+        <label class="check-item"><span>Todos os vínculos de usuários destas escolas</span><input type="checkbox" class="master-limpeza-tipo" value="USUARIOS" onchange="atualizarCamposLimpezaMaster(this)"></label>
+      </div></div><div class="field"><label>Digite exatamente <b>ZERAR DADOS</b> para liberar a execução</label><input id="master-limpeza-confirmacao" placeholder="Palavra-chave de confirmação" autocomplete="off"></div><button id="btn-master-executar-limpeza" class="btn btn-red" onclick="executarLimpezaMaster()">Executar limpeza selecionada</button><p class="tiny" id="master-limpeza-resultado"></p></div><p class="tiny">Este painel é protegido também no servidor e só aceita uma sessão master autenticada com o PIN do proprietário.</p></div></div></div>
+
+  <!-- Confirmação HTML padronizada -->
+  <div id="modal-confirmacao" class="modal-backdrop modal-top hidden"><div class="modal small"><div class="modal-head"><h3 id="titulo-confirmacao">Confirmar ação</h3><button type="button" onclick="cancelarConfirmacao()">×</button></div><div class="modal-body"><p id="texto-confirmacao" class="confirm-text"></p><div class="modal-foot" style="padding:12px 0 0;border:0"><button class="btn btn-soft" onclick="cancelarConfirmacao()">Cancelar</button><button id="btn-confirmar-acao" class="btn btn-red" onclick="executarConfirmacao()">Confirmar</button></div></div></div></div>
+
+  <!-- Modal de aviso -->
+  <div id="modal-notificacao" class="notice hidden"><div class="notice-card"><div id="icon-notificacao" class="notice-icon">✓</div><h3 id="titulo-notificacao">Aviso</h3><p id="msg-notificacao"></p><button class="btn btn-dark btn-block" onclick="fecharNotificacao()">Entendi</button></div></div>
+
+  <script src="./config.js"></script>
+  <script>
+    'use strict';
+    let portalToken = '', usuarioLogado = null, escolasDisponiveis = [], escolaAtual = null;
+    let syncTimer = null, syncInFlight = false, syncRefreshInFlight = false, syncVersionAtual = 1;
+    let turmaSelecionada = '', dadosTurmaCache = null, disciplinasVisiveis = [], obsAtualContexto = null;
+    let modoProficienciaAtual = 'grupos', notasPendentes = new Map(), timerLoteNotas = null, graficoAtual = null, bloqueiosAtuais = [false,false,false,false];
+    let undoStack = [], alunoEdicaoAtual = null, alunoExclusaoAtual = null, desfazendoLocal = false, gradeSavesInFlight = 0;
+    let emailMasterPendente = '', emailUsuarioPendente = '', modoPinUsuario = 'LOGIN', confirmacaoPendente = null, adminLoading = false, masterLoading = false, marcaAtual = null, manterAcessoAtual = true;
+    let indicadoresTurmaCache = null, indicadoresTurmaCacheKey = '', indicadoresRequestSeq = 0;
+    const bimesterList = ['1º BIMESTRE','2º BIMESTRE','3º BIMESTRE','4º BIMESTRE'];
+    const byId = id => document.getElementById(id);
+    function usuarioPodeGerenciarAlunos(){return usuarioLogado?.master===true||String(usuarioLogado?.perfil||'').toUpperCase()==='ADM';}
+
+    function callServer(fn, args, onSuccess, silent, onFailure) {
+      const fail = err => {
+        const message = err && err.message ? err.message : String(err || 'Falha de comunicação.');
+        if (fn === 'loginPortal') { const btn=byId('btn-login'); if(btn){btn.disabled=false;btn.innerHTML='Entrar na plataforma <span>→</span>'; } }
+        if (fn === 'confirmarLoginMaster') { const btn=byId('btn-confirmar-pin-master'); if(btn){btn.disabled=false;btn.textContent='Validar PIN';} }
+        if (fn === 'confirmarLoginUsuario' || fn === 'cadastrarPinUsuario') { const btn=byId('btn-confirmar-pin-usuario'); if(btn){btn.disabled=false;btn.textContent=modoPinUsuario==='SETUP'?'Cadastrar PIN':'Validar PIN';} }
+        if (fn === 'carregarDadosTurma') byId('loading-tabela')?.classList.add('hidden');
+        if (typeof onFailure === 'function') onFailure(message, err);
+        if (/sessão expirou|acesso foi desativado|novo acesso|PIN foi redefinido|PIN precisa ser cadastrado/i.test(message)) {
+          limparSessao(); mostrarNotificacao('Sessão encerrada', message, 'aviso');
+        } else if (!silent) mostrarNotificacao('Não foi possível concluir', message, 'aviso');
+      };
+
+      const apiUrl = String(window.PORTAL_CONFIG && window.PORTAL_CONFIG.API_URL || '').trim();
+      if (!apiUrl || !/^https:\//i.test(apiUrl)) {
+        fail(new Error('A API ainda não foi configurada. Abra config.js e informe a URL do Cloudflare Worker.'));
+        return;
+      }
+
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'omit',
+        cache: 'no-store',
+        body: JSON.stringify({ action: fn, args: Array.isArray(args) ? args : [] })
+      })
+      .then(async response => {
+        const raw = await response.text();
+        let payload;
+        try { payload = JSON.parse(raw); }
+        catch (_) { throw new Error('A API retornou uma resposta inválida. Confira a publicação do backend e do Worker.'); }
+        if (!response.ok || !payload || payload.ok !== true) {
+          throw new Error(payload && payload.error && payload.error.message ? payload.error.message : 'Falha de comunicação com o servidor.');
+        }
+        return payload.result;
+      })
+      .then(result => { if (typeof onSuccess === 'function') onSuccess(result); })
+      .catch(fail);
+    }
+    function esc(v){return String(v===null||v===undefined?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+    function aplicarLogo(url){
+      const clean=String(url||'').trim(),valid=!!(clean&&/^https:\/\//i.test(clean));
+      const loginImg=byId('logo-login'),headerImg=byId('logo-header');loginImg.decoding='async';loginImg.loading='eager';headerImg.decoding='async';
+      if(valid){
+        [loginImg,headerImg].forEach(img=>{if(img.src!==clean)img.src=clean;img.classList.remove('hidden');img.onerror=()=>{img.classList.add('hidden');if(img===loginImg)byId('login-icon-fallback').classList.remove('hidden');else byId('header-logo-fallback').classList.remove('hidden');byId('tela-login').classList.remove('logo-active');byId('header-brand').classList.remove('logo-active');};img.onload=()=>{if(img===loginImg)byId('login-icon-fallback').classList.add('hidden');else byId('header-logo-fallback').classList.add('hidden');};});
+        byId('tela-login').classList.add('logo-active');byId('header-brand').classList.add('logo-active');
+      }else{loginImg.classList.add('hidden');headerImg.classList.add('hidden');byId('login-icon-fallback').classList.remove('hidden');byId('header-logo-fallback').classList.remove('hidden');byId('tela-login').classList.remove('logo-active');byId('header-brand').classList.remove('logo-active');}
+    }
+    function aplicarMarca(brand){
+      if(!brand)return;marcaAtual=brand;
+      const appName=String(brand.appName||'Portal de Notas e Acompanhamento Pedagógico');
+      byId('login-title').textContent=String(brand.loginTitle||appName);
+      byId('login-description').textContent=String(brand.loginDescription||'Entre com o e-mail previamente autorizado para sua unidade escolar.');
+      byId('header-app-title').textContent=appName;byId('footer-brand-text').textContent=String(brand.footerText||'');
+      document.title=appName;aplicarLogo(brand.logoUrl||'');
+    }
+    function aplicarMarcaDoCadastro(cfg){return {appName:cfg.APP_NAME,loginTitle:cfg.LOGIN_TITLE,loginDescription:cfg.LOGIN_DESCRIPTION,footerText:cfg.FOOTER_TEXT,logoUrl:cfg.LOGO_URL};}
+    function showScreen(id){['tela-login','app-header','app-main','app-footer'].forEach(x=>byId(x).classList.toggle('hidden',x!==id));}
+    function hideSplash(){const s=byId('splashscreen');s.style.opacity='0';setTimeout(()=>s.remove(),320);}
+    function limparChavesAcesso(storageRef){['ppi_token','ppi_email','ppi_school','ppi_remember'].forEach(k=>storageRef.removeItem(k));}
+    function getStoredValue(key){return localStorage.getItem(key)||sessionStorage.getItem(key)||'';}
+    function getSavedToken(){return localStorage.getItem('ppi_token')||sessionStorage.getItem('ppi_token')||'';}
+    function saveSession(token,email,remember){
+      manterAcessoAtual=!!remember;limparChavesAcesso(localStorage);limparChavesAcesso(sessionStorage);
+      const target=manterAcessoAtual?localStorage:sessionStorage;
+      target.setItem('ppi_email',String(email||''));target.setItem('ppi_remember',manterAcessoAtual?'true':'false');
+      // A sessão master nunca é restaurada automaticamente: exige PIN em cada novo acesso.
+      if(String(email).toLowerCase()!=='desenvolvedorpedrocosta@gmail.com')target.setItem('ppi_token',String(token||''));
+    }
+    function salvarPreferenciaAcesso(remember){
+      const email=usuarioLogado?.email||getStoredValue('ppi_email');
+      const school=escolaAtual?.id||getStoredValue('ppi_school');
+      const token=portalToken||getSavedToken();
+      saveSession(token,email,remember);
+      const target=manterAcessoAtual?localStorage:sessionStorage;
+      if(school)target.setItem('ppi_school',school);
+    }
+    function limparAvisosResiduais(){
+      ['modal-notificacao','modal-confirmacao','modal-escolha-escola','modal-pin-master','modal-pin-usuario'].forEach(id=>byId(id)?.classList.add('hidden'));
+      confirmacaoPendente=null;byId('titulo-notificacao').textContent='Aviso';byId('msg-notificacao').textContent='';byId('erro-pin-master').textContent='';byId('modal-pin-master')?.setAttribute('aria-hidden','true');byId('erro-pin-usuario')?.replaceChildren();byId('modal-pin-usuario')?.setAttribute('aria-hidden','true');
+    }
+    function limparSessao(){
+      if(presenceTimer){clearInterval(presenceTimer);presenceTimer=null;}
+      if(syncTimer){clearInterval(syncTimer);syncTimer=null;}syncInFlight=false;syncRefreshInFlight=false;syncVersionAtual=1;
+      callPendingSaveTimerCleanup();limparChavesAcesso(localStorage);limparChavesAcesso(sessionStorage);
+      portalToken='';usuarioLogado=null;escolaAtual=null;escolasDisponiveis=[];turmaSelecionada='';dadosTurmaCache=null;undoStack=[];notasPendentes.clear();emailMasterPendente='';emailUsuarioPendente='';modoPinUsuario='LOGIN';manterAcessoAtual=true;
+      ['modal-adm','modal-master','modal-obs','modal-disciplina','modal-reuniao-pais','modal-graficos','modal-add-aluno','modal-editar-aluno','modal-confirmar-exclusao-aluno'].forEach(id=>byId(id)?.classList.add('hidden'));
+      limparAvisosResiduais();byId('input-pin-master').value='';byId('input-pin-usuario').value='';byId('input-confirmar-pin-usuario').value='';showScreen('tela-login');
+    }
+    function callPendingSaveTimerCleanup(){if(timerLoteNotas)clearTimeout(timerLoteNotas);timerLoteNotas=null;}
+
+    document.addEventListener('DOMContentLoaded', iniciarPortal);
+    function iniciarPortal(){
+      byId('ano-atual').textContent=new Date().getFullYear();
+      // Compatibilidade segura com a V5: ela mantinha o e-mail no LocalStorage mesmo
+      // quando a caixa de permanência estava desmarcada. Sem token persistente, apaga-se
+      // esse resíduo antigo para não pré-preencher o próximo acesso.
+      if(!localStorage.getItem('ppi_token') && localStorage.getItem('ppi_remember')!=='true'){
+        localStorage.removeItem('ppi_email');localStorage.removeItem('ppi_school');localStorage.removeItem('ppi_remember');
+      }
+      manterAcessoAtual=(localStorage.getItem('ppi_remember')==='true') || (sessionStorage.getItem('ppi_remember')==='false' ? false : true);
+      byId('lembrar-acesso').checked=manterAcessoAtual;
+      const savedEmail=getStoredValue('ppi_email'); if(savedEmail)byId('input-login-email').value=savedEmail;
+      byId('lembrar-acesso').addEventListener('change',e=>salvarPreferenciaAcesso(e.target.checked));
+      byId('form-login').addEventListener('submit',e=>{e.preventDefault();efetuarLogin();});
+      callServer('obterConfiguracaoMarcaPublica',[],brand=>{if(!escolaAtual)aplicarMarca(brand);},true,()=>callServer('obterLogoPortalPublico',[],url=>{if(!escolaAtual)aplicarLogo(url);},true));
+      const token=getSavedToken();
+      if(token){portalToken=token;localizarSessaoAnterior();}else{showScreen('tela-login');hideSplash();}
+    }
+    function localizarSessaoAnterior(){
+      const lastSchool=getStoredValue('ppi_school');
+      // Revalida a sessão usando a última escola conhecida. Se o usuário possui várias, a tela de escolha aparece.
+      if(!lastSchool){limparSessao();hideSplash();return;}
+      callServer('obterDadosPortal',[portalToken,lastSchool],dados=>{
+        if(dados.user?.master){callServer('logoutPortal',[portalToken],()=>{},true);limparSessao();hideSplash();return;}
+        usuarioLogado=dados.user;escolaAtual=dados.school;escolasDisponiveis=dados.schools||[];
+        if(escolasDisponiveis.length>1){
+          byId('lista-escolas-login').innerHTML=escolasDisponiveis.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
+          const selected=escolasDisponiveis.some(s=>s.id===lastSchool)?lastSchool:escolasDisponiveis[0].id;
+          byId('lista-escolas-login').value=selected;showScreen('tela-login');byId('modal-escolha-escola').classList.remove('hidden');
+        }else{entrarNaEscola(dados);}
+        hideSplash();
+      },true);
+      setTimeout(()=>{if(byId('splashscreen')){showScreen('tela-login');hideSplash();}},6500);
+    }
+    function efetuarLogin(){
+      // Limpa qualquer aviso/modal anterior para que uma sessão antiga não interfira no envio atual.
+      limparAvisosResiduais();
+      const email=String(byId('input-login-email')?.value||'').trim().toLowerCase();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return mostrarNotificacao('E-mail inválido','Informe um endereço de e-mail válido para acessar o portal.','aviso');
+
+      // Interceptação explícita do e-mail master no evento submit do formulário.
+      // A comparação é normalizada (minúsculas e sem espaços externos) e abre o PIN sem
+      // aguardar uma chamada remota. A autenticação e a criação da sessão continuam no backend.
+      if(email === 'desenvolvedorpedrocosta@gmail.com'){
+        abrirPinMaster(email);
+        return;
+      }
+
+      const btn=byId('btn-login');
+      if(btn){btn.disabled=true;btn.textContent='Validando acesso…';}
+      // Para os demais endereços, o backend confirma o cadastro ativo antes de qualquer avanço.
+      callServer('loginPortal',[email],resp=>{
+        if(btn){btn.disabled=false;btn.innerHTML='Entrar na plataforma <span>→</span>';}
+        if(!resp.success){portalToken='';usuarioLogado=null;escolaAtual=null;if(resp.reason==='UNAUTHORIZED_EMAIL'||resp.reason==='INVALID_EMAIL')return mostrarNotificacao('Acesso não autorizado','Este e-mail não está cadastrado ou está com o acesso desativado.','aviso');return mostrarNotificacao('Vínculo escolar necessário',resp.message||'Este usuário ainda não está associado a uma escola ativa.','aviso');}
+        if(resp.requiresMasterPin===true){abrirPinMaster(email);return;}
+        if(String(resp.email||'').trim().toLowerCase()==='desenvolvedorpedrocosta@gmail.com')return mostrarNotificacao('Validação incompleta','O acesso do proprietário exige o PIN master.','aviso');
+        if(resp.requiresUserPin===true){abrirPinUsuario(email,resp.requiresPinSetup===true);return;}
+        finalizarLoginBemSucedido(resp);
+      },false,()=>{if(btn){btn.disabled=false;btn.innerHTML='Entrar na plataforma <span>→</span>';}});
+    }
+    function abrirPinMaster(email){
+      const modal=byId('modal-pin-master');
+      const input=byId('input-pin-master');
+      const erro=byId('erro-pin-master');
+      if(!modal||!input||!erro){
+        mostrarNotificacao('Não foi possível abrir a validação','O modal de segurança do proprietário não foi encontrado. Atualize a página e tente novamente.','aviso');
+        return;
+      }
+      emailMasterPendente=String(email||'').trim().toLowerCase();
+      input.value='';erro.textContent='';
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden','false');
+      // Mantém o modal acima da tela de login e de qualquer camada de carregamento.
+      modal.style.zIndex='1200';
+      requestAnimationFrame(()=>{input.focus();});
+    }
+    function cancelarPinMaster(){emailMasterPendente='';byId('input-pin-master').value='';byId('erro-pin-master').textContent='';byId('modal-pin-master').setAttribute('aria-hidden','true');fecharModal('modal-pin-master');}
+    function confirmarPinMaster(){
+      if(!emailMasterPendente)return cancelarPinMaster();
+      const pin=byId('input-pin-master').value;const btn=byId('btn-confirmar-pin-master');
+      if(!pin.trim()){byId('erro-pin-master').textContent='Digite o PIN para continuar.';return;}
+      btn.disabled=true;btn.textContent='Validando…';byId('erro-pin-master').textContent='';
+      callServer('confirmarLoginMaster',[emailMasterPendente,pin],resp=>{
+        btn.disabled=false;btn.textContent='Validar PIN';
+        if(!resp.success){byId('erro-pin-master').textContent=resp.message||'Não foi possível validar o PIN.';byId('input-pin-master').value='';byId('input-pin-master').focus();return;}
+        emailMasterPendente='';byId('modal-pin-master').setAttribute('aria-hidden','true');fecharModal('modal-pin-master');byId('input-pin-master').value='';finalizarLoginBemSucedido(resp);
+      },true,()=>{btn.disabled=false;btn.textContent='Validar PIN';});
+    }
+    function abrirPinUsuario(email,setup){
+      emailUsuarioPendente=String(email||'').trim().toLowerCase();modoPinUsuario=setup?'SETUP':'LOGIN';
+      const modal=byId('modal-pin-usuario'),input=byId('input-pin-usuario'),confirm=byId('campo-confirmar-pin-usuario'),btn=byId('btn-confirmar-pin-usuario');
+      if(!modal||!input||!confirm||!btn){mostrarNotificacao('Não foi possível abrir a validação','O formulário de PIN não foi encontrado. Atualize a página.','aviso');return;}
+      byId('titulo-pin-usuario').textContent=setup?'🔐 Cadastre seu PIN':'🔐 Confirme seu PIN';
+      byId('texto-pin-usuario').textContent=setup?'Este é seu primeiro acesso ou seu PIN foi redefinido. Crie um PIN numérico de quatro dígitos e confirme abaixo.':'Digite seu PIN pessoal de quatro dígitos para acessar o portal.';
+      confirm.classList.toggle('hidden',!setup);input.value='';byId('input-confirmar-pin-usuario').value='';byId('erro-pin-usuario').textContent='';
+      input.autocomplete=setup?'new-password':'current-password';btn.textContent=setup?'Cadastrar PIN':'Validar PIN';btn.disabled=false;
+      modal.classList.remove('hidden');modal.setAttribute('aria-hidden','false');modal.style.zIndex='6310';requestAnimationFrame(()=>input.focus());
+    }
+    function cancelarPinUsuario(){emailUsuarioPendente='';modoPinUsuario='LOGIN';byId('input-pin-usuario').value='';byId('input-confirmar-pin-usuario').value='';byId('erro-pin-usuario').textContent='';byId('modal-pin-usuario').setAttribute('aria-hidden','true');fecharModal('modal-pin-usuario');}
+    function confirmarPinUsuario(){
+      if(!emailUsuarioPendente)return cancelarPinUsuario();
+      const pin=byId('input-pin-usuario').value,confirm=byId('input-confirmar-pin-usuario').value,setup=modoPinUsuario==='SETUP';
+      if(!/^\d{4}$/.test(pin)){byId('erro-pin-usuario').textContent='O PIN deve conter exatamente quatro números.';return;}
+      if(setup&&pin!==confirm){byId('erro-pin-usuario').textContent='Os PINs informados não coincidem.';byId('input-confirmar-pin-usuario').focus();return;}
+      const btn=byId('btn-confirmar-pin-usuario');btn.disabled=true;btn.textContent=setup?'Salvando PIN…':'Validando…';byId('erro-pin-usuario').textContent='';
+      const action=setup?'cadastrarPinUsuario':'confirmarLoginUsuario';const args=setup?[emailUsuarioPendente,pin,confirm]:[emailUsuarioPendente,pin];
+      callServer(action,args,resp=>{
+        btn.disabled=false;btn.textContent=setup?'Cadastrar PIN':'Validar PIN';
+        if(!resp.success){if(resp.requiresPinSetup===true){abrirPinUsuario(emailUsuarioPendente,true);return;}byId('erro-pin-usuario').textContent=resp.message||'Não foi possível validar o PIN.';byId('input-pin-usuario').value='';if(!setup)byId('input-pin-usuario').focus();return;}
+        emailUsuarioPendente='';byId('modal-pin-usuario').setAttribute('aria-hidden','true');fecharModal('modal-pin-usuario');byId('input-pin-usuario').value='';byId('input-confirmar-pin-usuario').value='';finalizarLoginBemSucedido(resp);
+      },true,()=>{btn.disabled=false;btn.textContent=setup?'Cadastrar PIN':'Validar PIN';});
+    }
+
+    function finalizarLoginBemSucedido(resp){
+      portalToken=resp.token;usuarioLogado={email:resp.email,perfil:resp.perfil,master:resp.master};escolasDisponiveis=resp.schools;
+      saveSession(resp.token,resp.email,byId('lembrar-acesso').checked);escolherEscolaDepoisLogin();
+    }
+    function escolherEscolaDepoisLogin(){
+      if(!escolasDisponiveis.length)return mostrarNotificacao('Sem escola vinculada','Solicite ao administrador a associação do seu usuário a uma unidade escolar.','aviso');
+      const last=getStoredValue('ppi_school');
+      const match=escolasDisponiveis.find(s=>s.id===last);
+      if(escolasDisponiveis.length===1){selecionarEscola(escolasDisponiveis[0].id);return;}
+      const sel=byId('lista-escolas-login');sel.innerHTML=escolasDisponiveis.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
+      if(match)sel.value=match.id;byId('modal-escolha-escola').classList.remove('hidden');
+    }
+    function confirmarEscolaLogin(){const id=byId('lista-escolas-login').value;fecharModal('modal-escolha-escola');selecionarEscola(id);}
+    function selecionarEscola(id){
+      byId('splashscreen')?.remove();
+      showScreen('app-header');byId('app-main').classList.remove('hidden');byId('app-footer').classList.remove('hidden');byId('area-balizadora').classList.remove('hidden');
+      byId('area-balizadora').classList.remove('hidden');
+      byId('user-email-display').textContent=usuarioLogado.email;
+      callServer('obterDadosPortal',[portalToken,id],dados=>entrarNaEscola(dados),false);
+    }
+    function entrarNaEscola(dados){
+      escolaAtual=dados.school;usuarioLogado=dados.user;escolasDisponiveis=dados.schools;syncVersionAtual=Number(dados.syncVersion)||1;iniciarPresencaOnline();iniciarSincronizacaoTempoReal();
+      byId('nome-escola-header').textContent=escolaAtual.name;
+      if(dados.brand)aplicarMarca(dados.brand);else aplicarLogo(dados.logoUrl||'');
+      byId('btn-painel-master').classList.toggle('hidden',!usuarioLogado.master);
+      byId('user-email-display').textContent=usuarioLogado.email;
+      const sel=byId('seletor-escola');
+      if(escolasDisponiveis.length>1){sel.classList.remove('hidden');sel.innerHTML=escolasDisponiveis.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');sel.value=escolaAtual.id;}else sel.classList.add('hidden');
+      byId('btn-painel-adm').classList.toggle('hidden',usuarioLogado?.master!==true&&String(usuarioLogado?.perfil||'').toUpperCase()!=='ADM');
+      byId('btn-add-disciplina-turma').classList.toggle('hidden',!usuarioPodeGerenciarAlunos());
+      byId('seletor-bimestre').value=dados.bimestreAtivo;
+      bloqueiosAtuais=dados.bloqueiosBimestres||[false,false,false,false];
+      renderizarTurmas(dados.turmas||[]);atualizarStatusBimestre(dados.bloqueiosBimestres||[false,false,false,false]);
+      (manterAcessoAtual?localStorage:sessionStorage).setItem('ppi_school',escolaAtual.id);
+      showScreen('app-header');byId('app-main').classList.remove('hidden');byId('app-footer').classList.remove('hidden');byId('area-balizadora').classList.remove('hidden');
+    }
+    function trocarEscolaSelecionada(){const id=byId('seletor-escola').value;if(id&&id!==escolaAtual.id){flushPendingGradeSaves();turmaSelecionada='';dadosTurmaCache=null;if(syncTimer){clearInterval(syncTimer);syncTimer=null;}syncInFlight=false;syncRefreshInFlight=false;syncVersionAtual=1;selecionarEscola(id);}}
+    function fazerLogout(){const token=portalToken;if(token){callServer('encerrarPresencaPortal',[token],()=>{},true);callServer('logoutPortal',[token],()=>{},true);}limparSessao();}
+
+    function renderizarTurmas(turmas){
+      const c=byId('container-botoes-turmas');c.innerHTML='';
+      turmas.forEach(t=>{const b=document.createElement('button');b.className='class-btn'+(turmaSelecionada===t?' active':'');b.textContent=t;b.onclick=()=>{flushPendingGradeSaves();turmaSelecionada=t;document.querySelectorAll('.class-btn').forEach(x=>x.classList.toggle('active',x===b));trocarTurmaOuBimestre();};c.appendChild(b);});
+      byId('adm-turma-disciplinas').innerHTML=turmas.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join('');byId('adm-turma-disciplinas').onchange=carregarDisciplinasAdministracao;
+    }
+    function aoTrocarBimestre(){flushPendingGradeSaves();atualizarStatusBimestre(bloqueiosAtuais);trocarTurmaOuBimestre();}
+    function trocarTurmaOuBimestre(){
+      if(!turmaSelecionada)return;
+      const bim=byId('seletor-bimestre').value;indicadoresTurmaCacheKey='';byId('nome-turma-selecionada').textContent=turmaSelecionada+' — '+bim;byId('loading-tabela').classList.remove('hidden');
+      callServer('carregarDadosTurma',[portalToken,escolaAtual.id,turmaSelecionada,bim],dados=>{
+        dadosTurmaCache=dados;if(Number(dados.syncVersion))syncVersionAtual=Number(dados.syncVersion);disciplinasVisiveis=[...(dados.disciplinas||[])];byId('loading-tabela').classList.add('hidden');construirMenuFiltroDisciplinas(dados.disciplinas||[]);renderizarTabelaNotas(dados);filtrarAlunos();
+      },false);
+    }
+    function atualizarStatusBimestre(bloq){bloqueiosAtuais=bloq||[false,false,false,false];const ix=bimesterList.indexOf(byId('seletor-bimestre').value);const locked=!!bloqueiosAtuais[ix];const p=byId('status-bimestre');p.textContent=locked?'🔒 Bimestre Bloqueado para Lançamentos':'● Lançamentos liberados';p.className='status-pill '+(locked?'status-locked':'status-open');}
+    function construirMenuFiltroDisciplinas(list){byId('lista-checkbox-disciplinas').innerHTML=list.map(d=>`<label class=\"discipline-filter-option\"><input type=\"checkbox\" class=\"chk-disc-item\" value=\"${esc(d)}\" checked onchange=\"filtrarDisciplinasTabela()\"><span>${esc(d)}</span></label>`).join('')||'<span class=\"tiny\">Sem disciplinas cadastradas.</span>'; }
+    function toggleFiltroDisciplinas(e){e?.stopPropagation();byId('dropdown-disciplinas').classList.toggle('hidden');}
+    document.addEventListener('click',e=>{const d=byId('dropdown-disciplinas');if(d&&!d.contains(e.target)&&!e.target.closest('button[onclick*="toggleFiltroDisciplinas"]'))d.classList.add('hidden');});
+    function marcarTodasDisciplinas(v){document.querySelectorAll('.chk-disc-item').forEach(c=>c.checked=v);filtrarDisciplinasTabela();}
+    function filtrarDisciplinasTabela(){flushPendingGradeSaves();disciplinasVisiveis=Array.from(document.querySelectorAll('.chk-disc-item:checked')).map(c=>c.value);renderizarTabelaNotas(dadosTurmaCache);filtrarAlunos();}
+
+    function renderizarTabelaNotas(dados){
+      if(!dados)return;const head=byId('header-tabela'),body=byId('body-tabela');
+      if(!dados.disciplinas?.length){head.innerHTML='<tr><th>Nome do estudante</th></tr>';body.innerHTML='<tr><td class="empty">Nenhuma disciplina cadastrada. Solicite ao administrador que configure a turma.</td></tr>';return;}
+      const visible=dados.disciplinas.filter(d=>disciplinasVisiveis.includes(d));
+      head.innerHTML='<tr><th>Estudante</th>'+visible.map(d=>`<th>${esc(d)}</th>`).join('')+'</tr>';
+      if(!dados.alunos?.length){body.innerHTML='<tr><td class="empty" colspan="'+(visible.length+1)+'">Nenhum estudante cadastrado nesta turma.</td></tr>';return;}
+      const isAdmin=usuarioPodeGerenciarAlunos();
+      body.innerHTML=dados.alunos.map((a,rowIndex)=>`<tr class="linha-aluno-row" data-nome="${esc(a.nome.toLowerCase())}" data-student-row="${rowIndex}"><td><div class="student-name-wrap"><span>${esc(a.nome)}</span>${isAdmin?`<div class="student-admin-actions"><button type="button" class="mini-btn" data-student-action="edit" data-student="${esc(a.id)}" title="Editar nome">✎ Editar</button><button type="button" class="mini-btn danger" data-student-action="delete" data-student="${esc(a.id)}" title="Retirar estudante da turma">Excluir</button></div>`:''}</div></td>${visible.map(d=>{
+        const i=dados.disciplinas.indexOf(d);const nota=a.notas[i]??'';const key=a.id+'|'+d;const obs=dados.observacoes[key];const noteText=obs&&obs.texto?obs.texto:'';const meta=dados.registroNotas?.[key]||{};
+        const isLocked=!!bloqueiosAtuais[bimesterList.indexOf(byId('seletor-bimestre').value)]&&usuarioLogado?.perfil!=='ADM';
+        return `<td><div style="display:flex;align-items:center;justify-content:center;gap:3px"><div><input class="grade-input ${classeNota(nota)}" data-student="${esc(a.id)}" data-disc="${esc(d)}" data-index="${i}" data-row-index="${rowIndex}" data-visible-col-index="${visible.indexOf(d)}" data-class="${esc(turmaSelecionada)}" data-school="${esc(escolaAtual.id)}" data-bimester="${esc(byId('seletor-bimestre').value)}" data-record-id="${esc(meta.recordId||'')}" data-last-saved="${esc(nota)}" value="${esc(nota)}" inputmode="numeric" maxlength="2" ${isLocked?'disabled title="Bimestre bloqueado para lançamentos"':''} aria-label="Nota de ${esc(a.nome)} em ${esc(d)}"><span class="cell-status" aria-live="polite"></span></div><button class="obs-btn ${noteText?'has-text':''}" data-student="${esc(a.id)}" data-disc="${esc(d)}" title="${noteText?'Abrir observação':'Adicionar observação'}" aria-label="Observação">✎</button></div></td>`;
+      }).join('')}</tr>`).join('');
+      body.querySelectorAll('.grade-input').forEach(input=>{
+        input.addEventListener('input',()=>{validarENotaInput(input);atualizarCorNotaNaHora(input);agendarSalvamentoNota(input);});
+        input.addEventListener('blur',()=>{salvarNotaDireta(input,true);ocultarTooltipObs();});
+        input.addEventListener('paste',tratarColagemDiretaNotas);
+        input.addEventListener('mouseenter',e=>mostrarTooltipObs(e,input.dataset.student,input.dataset.disc));
+        input.addEventListener('mouseleave',ocultarTooltipObs);
+        input.addEventListener('focus',e=>mostrarTooltipObs(e,input.dataset.student,input.dataset.disc));
+        input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();salvarNotaDireta(input,true);input.blur();}});
+      });
+      body.querySelectorAll('.obs-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>abrirModalObs(btn.dataset.student,btn.dataset.disc));
+        btn.addEventListener('mouseenter',e=>mostrarTooltipObs(e,btn.dataset.student,btn.dataset.disc));
+        btn.addEventListener('mouseleave',ocultarTooltipObs);
+        btn.addEventListener('focus',e=>mostrarTooltipObs(e,btn.dataset.student,btn.dataset.disc));
+        btn.addEventListener('blur',ocultarTooltipObs);
+      });
+      body.querySelectorAll('[data-student-action="edit"]').forEach(btn=>btn.addEventListener('click',()=>abrirModalEditarAluno(btn.dataset.student)));
+      body.querySelectorAll('[data-student-action="delete"]').forEach(btn=>btn.addEventListener('click',()=>abrirConfirmacaoExclusaoAluno(btn.dataset.student)));
+    }
+    function classeNota(v){if(v===''||v===null||v===undefined)return'grade-neutral';const n=Number(String(v).replace(',','.'));if(!Number.isFinite(n))return'grade-neutral';if(n<5)return'grade-low';if(n<7)return'grade-mid';if(n<9)return'grade-good';return'grade-advanced';}
+    function validarENotaInput(input){const v=input.value.replace(/\D/g,'').slice(0,2);input.value=v;const n=Number(v);if(v!==''&&(!Number.isInteger(n)||n<1||n>10)){mostrarNotificacao('Nota inválida','A nota deve ser um número inteiro entre 1 e 10.','aviso');input.value=input.dataset.lastSaved||'';}}
+    function atualizarCorNotaNaHora(input){input.classList.remove('grade-low','grade-mid','grade-good','grade-neutral');input.classList.add(classeNota(input.value));}
+    function notaValida(v){if(String(v).trim()==='')return true;if(!/^\d{1,2}$/.test(String(v).trim()))return false;const n=Number(v);return Number.isInteger(n)&&n>=1&&n<=10;}
+    function agendarSalvamentoNota(input){
+      const key=input.dataset.student+'|'+input.dataset.disc;const value=input.value.trim();
+      if(!notaValida(value))return;
+      if(value===String(input.dataset.lastSaved??'')){notasPendentes.delete(key);const st=input.parentElement.querySelector('.cell-status');if(st)st.textContent='';return;}
+      notasPendentes.set(key,input);const st=input.parentElement.querySelector('.cell-status');if(st)st.textContent='Aguardando…';
+      if(timerLoteNotas)clearTimeout(timerLoteNotas);timerLoteNotas=setTimeout(enviarNotasPendentes,420);
+    }
+    function salvarNotaDireta(input,immediate){
+      if(!input||input.dataset.saving==='1')return;const key=input.dataset.student+'|'+input.dataset.disc;
+      if(!notaValida(input.value.trim())){mostrarNotificacao('Nota inválida','Digite um número inteiro entre 1 e 10.','aviso');input.value=input.dataset.lastSaved||'';atualizarCorNotaNaHora(input);notasPendentes.delete(key);return;}
+      if(input.value.trim()===String(input.dataset.lastSaved??'')){notasPendentes.delete(key);return;}
+      notasPendentes.set(key,input);if(timerLoteNotas)clearTimeout(timerLoteNotas);if(immediate)enviarNotasPendentes();else timerLoteNotas=setTimeout(enviarNotasPendentes,420);
+    }
+    function flushPendingGradeSaves(){if(timerLoteNotas)clearTimeout(timerLoteNotas);timerLoteNotas=null;if(notasPendentes.size)enviarNotasPendentes();}
+    function enviarNotasPendentes(){
+      if(timerLoteNotas)clearTimeout(timerLoteNotas);timerLoteNotas=null;if(!notasPendentes.size)return;
+      const groups=new Map();notasPendentes.forEach(input=>{if(!input)return;const groupKey=[input.dataset.school,input.dataset.class,input.dataset.bimester].join('|');if(!groups.has(groupKey))groups.set(groupKey,[]);groups.get(groupKey).push(input);});notasPendentes.clear();
+      groups.forEach(inputs=>{for(let offset=0;offset<inputs.length;offset+=250){
+        const batchInputs=inputs.slice(offset,offset+250),first=batchInputs[0];
+        const requestToken=portalToken;
+        const editorEmail=String(usuarioLogado?.email||'').toLowerCase();
+        const previous=batchInputs.map(input=>({studentId:input.dataset.student,disciplina:input.dataset.disc,previousValue:String(input.dataset.lastSaved??''),value:input.value.trim(),expectedRecordId:String(input.dataset.recordId||'')}));
+        const updates=batchInputs.map((input)=>{const status=input.parentElement.querySelector('.cell-status');if(status)status.textContent='Salvando…';input.disabled=true;input.dataset.saving='1';return {studentId:input.dataset.student,disciplina:input.dataset.disc,nota:input.value.trim(),expectedRecordId:input.dataset.recordId||''};});
+        gradeSavesInFlight++;
+        let requestReleased=false;
+        const releaseRequest=()=>{if(!requestReleased){requestReleased=true;gradeSavesInFlight=Math.max(0,gradeSavesInFlight-1);}};
+        const sameSession=()=>portalToken===requestToken&&String(usuarioLogado?.email||'').toLowerCase()===editorEmail;
+        const restore=(message)=>{
+          releaseRequest();
+          batchInputs.forEach(input=>{input.disabled=false;input.dataset.saving='';input.value=input.dataset.lastSaved||'';atualizarCorNotaNaHora(input);const st=input.parentElement?.querySelector('.cell-status');if(st)st.textContent='Não salvo';});
+          if(message&&sameSession())mostrarNotificacao('Notas não salvas',message,'aviso');
+          if(sameSession()&&/alteradas por outro usuário|atualize a turma/i.test(message||''))trocarTurmaOuBimestre();
+        };
+        callServer('salvarNotasEmLote',[requestToken,first.dataset.school,first.dataset.class,first.dataset.bimester,updates],resp=>{
+          releaseRequest();
+          if(!resp.success){restore(resp.message||'Não foi possível salvar as notas.');return;}
+          const sessionStillOwnsRequest=sameSession();
+          const changes=[];
+          batchInputs.forEach((input,i)=>{
+            const savedValue=previous[i].value,key=input.dataset.student+'|'+input.dataset.disc,record=resp.records?.[key]||{};
+            const sameView=sessionStillOwnsRequest&&escolaAtual?.id===input.dataset.school&&turmaSelecionada===input.dataset.class&&byId('seletor-bimestre').value===input.dataset.bimester;
+            input.disabled=false;input.dataset.saving='';input.dataset.lastSaved=savedValue;input.dataset.recordId=record.recordId||input.dataset.recordId||'';
+            if(savedValue!==previous[i].previousValue&&record.recordId){changes.push({studentId:input.dataset.student,disciplina:input.dataset.disc,previousValue:previous[i].previousValue,afterValue:savedValue,afterRecordId:record.recordId});}
+            if(sameView&&dadosTurmaCache){dadosTurmaCache.registroNotas=dadosTurmaCache.registroNotas||{};dadosTurmaCache.registroNotas[key]={autor:record.autor||resp.autor||editorEmail,data:record.data||resp.data||'',recordId:record.recordId||''};}
+            const st=input.parentElement?.querySelector('.cell-status');if(st){st.textContent='Salvo ✓';setTimeout(()=>{if(st.isConnected)st.textContent='';},1600);}
+            if(sameView){const al=dadosTurmaCache?.alunos.find(a=>a.id===input.dataset.student);if(al)al.notas[Number(input.dataset.index)]=savedValue===''?'':Number(savedValue);}
+          });
+          if(sessionStillOwnsRequest&&changes.length&&!desfazendoLocal){undoStack.push({editorEmail:editorEmail,schoolId:first.dataset.school,turma:first.dataset.class,bimestre:first.dataset.bimester,changes:changes});if(undoStack.length>60)undoStack.shift();}
+        },false,restore);
+      }});
+    }
+
+    function tratarColagemDiretaNotas(event){
+      const raw=event.clipboardData?.getData('text/plain')||'';
+      if(!/[\t\r\n]/.test(raw))return; // uma única nota continua usando a colagem nativa do campo
+      event.preventDefault();
+      const start=event.currentTarget,colStart=Number(start.dataset.visibleColIndex);
+      const body=byId('body-tabela');
+      const visibleRows=[...body.querySelectorAll('.linha-aluno-row')].filter(row=>row.style.display!=='none');
+      const startRow=visibleRows.indexOf(start.closest('.linha-aluno-row'));
+      if(startRow<0)return;
+      let lines=raw.replace(/\r/g,'').split('\n');if(lines.length&&lines[lines.length-1]==='')lines.pop();
+      const matrix=lines.map(line=>line.split('\t'));
+      const lookup=new Map();
+      visibleRows.forEach((row,rowIndex)=>row.querySelectorAll('.grade-input').forEach(input=>lookup.set(rowIndex+'|'+input.dataset.visibleColIndex,input)));
+      const planned=[],invalid=[];
+      matrix.forEach((line,r)=>line.forEach((cell,c)=>{
+        const value=String(cell??'').trim();if(value==='')return;
+        const target=lookup.get((startRow+r)+'|'+(colStart+c));
+        if(!target||target.disabled){invalid.push('A matriz ultrapassa as células disponíveis ou contém células bloqueadas.');return;}
+        if(!notaValida(value)){invalid.push('Valor inválido em '+(startRow+r+1)+', coluna '+(colStart+c+1)+': '+value);return;}
+        planned.push({input:target,value:value});
+      }));
+      if(invalid.length){mostrarNotificacao('Colagem não aplicada',[...new Set(invalid)].slice(0,4).join('\n')+' Nenhuma nota desta colagem foi alterada.','aviso');return;}
+      if(!planned.length)return;
+      flushPendingGradeSaves();
+      planned.forEach(x=>{x.input.value=x.value;atualizarCorNotaNaHora(x.input);agendarSalvamentoNota(x.input);});
+      const cellCount=planned.length;mostrarNotificacao('Colagem reconhecida',cellCount+' célula(s) organizada(s) a partir da posição selecionada. O salvamento será automático.','sucesso');
+    }
+
+    function desfazerUltimaEdicaoLocal(){
+      if(notasPendentes.size){flushPendingGradeSaves();return mostrarNotificacao('Salvamento em andamento','As edições pendentes foram enviadas. Pressione Ctrl + Z novamente depois que o portal indicar que foram salvas.','aviso');}
+      if(gradeSavesInFlight>0)return mostrarNotificacao('Salvamento em andamento','Aguarde a confirmação das notas antes de desfazer uma edição.','aviso');
+      if(!undoStack.length)return mostrarNotificacao('Nada para desfazer','Não há alterações salvas nesta sessão do navegador.','aviso');
+      const tx=undoStack[undoStack.length-1];
+      if(!usuarioLogado?.email||tx.editorEmail!==String(usuarioLogado.email).toLowerCase()){undoStack.pop();return mostrarNotificacao('Histórico indisponível','Esta alteração não pertence à sessão atual e não pode ser desfeita por outro usuário.','aviso');}
+      const updates=tx.changes.map(ch=>({studentId:ch.studentId,disciplina:ch.disciplina,nota:ch.previousValue,expectedRecordId:ch.afterRecordId}));
+      callServer('salvarNotasEmLote',[portalToken,tx.schoolId,tx.turma,tx.bimestre,updates],resp=>{
+        if(!resp.success){mostrarNotificacao('Desfazer não aplicado',resp.message||'A nota já foi alterada por outro usuário. A turma será atualizada com os valores mais recentes.','aviso');if(resp.conflict){undoStack.pop();if(escolaAtual?.id===tx.schoolId&&turmaSelecionada===tx.turma&&byId('seletor-bimestre').value===tx.bimestre)trocarTurmaOuBimestre();}return;}
+        undoStack.pop();
+        if(escolaAtual?.id===tx.schoolId&&turmaSelecionada===tx.turma&&byId('seletor-bimestre').value===tx.bimestre){
+          tx.changes.forEach(ch=>{const key=ch.studentId+'|'+ch.disciplina,al=dadosTurmaCache?.alunos.find(a=>a.id===ch.studentId),idx=dadosTurmaCache?.disciplinas.indexOf(ch.disciplina);if(al&&idx>=0)al.notas[idx]=ch.previousValue===''?'':Number(ch.previousValue);const rec=resp.records?.[key]||{};if(dadosTurmaCache){dadosTurmaCache.registroNotas[key]={autor:rec.autor||usuarioLogado.email,data:rec.data||'',recordId:rec.recordId||''};}const input=[...document.querySelectorAll('.grade-input')].find(i=>i.dataset.student===ch.studentId&&i.dataset.disc===ch.disciplina);if(input){input.value=ch.previousValue;input.dataset.lastSaved=ch.previousValue;input.dataset.recordId=rec.recordId||'';atualizarCorNotaNaHora(input);}});
+        }
+        mostrarNotificacao('Alteração desfeita',tx.changes.length+' nota(s) restaurada(s) neste navegador.','sucesso');
+      });
+    }
+    document.addEventListener('keydown',event=>{
+      if(!(event.ctrlKey||event.metaKey)||event.key.toLowerCase()!=='z'||event.shiftKey)return;
+      const target=event.target;
+      // O comando personalizado só funciona com foco em uma célula de nota já salva.
+      // Em campos de texto, busca e modais, o navegador mantém o desfazer nativo.
+      if(!target?.classList?.contains('grade-input'))return;
+      if(target.disabled||target.dataset.saving==='1')return;
+      if(target.value!==String(target.dataset.lastSaved??''))return;
+      if(byId('app-main').classList.contains('hidden'))return;
+      event.preventDefault();desfazerUltimaEdicaoLocal();
+    });
+    function filtrarAlunos(){const term=byId('busca-aluno').value.toLocaleLowerCase('pt-BR');document.querySelectorAll('.linha-aluno-row').forEach(r=>r.style.display=(r.dataset.nome||'').includes(term)?'':'none');}
+
+    function mostrarTooltipObs(event,studentId,disc){
+      const key=studentId+'|'+disc,obs=dadosTurmaCache?.observacoes?.[key],meta=dadosTurmaCache?.registroNotas?.[key];
+      if(!obs?.texto&&!meta?.autor)return;
+      const box=byId('tooltip-flutuante');
+      let html='';
+      if(meta?.autor)html+='<strong>Nota lançada por:</strong><br>'+esc(meta.autor)+(meta.data?' · '+esc(meta.data):'');
+      if(obs?.texto)html+=(html?'<hr style="border:0;border-top:1px solid #53657b;margin:6px 0">':'')+'<strong>Observação:</strong><br>'+esc(obs.texto)+'<br><span style="color:#a9bfd7">'+esc(obs.autor)+' · '+esc(obs.data)+'</span>';
+      box.innerHTML=html;box.style.display='block';const rect=event.currentTarget.getBoundingClientRect();const boxWidth=Math.min(280,window.innerWidth-16);const left=Math.min(window.innerWidth-boxWidth-8,Math.max(8,rect.left-90));const top=Math.max(8,rect.top-box.offsetHeight-9);box.style.left=left+'px';box.style.top=top+'px';
+    }
+    function ocultarTooltipObs(){byId('tooltip-flutuante').style.display='none';}
+
+    function abrirModalAddAluno(){if(!turmaSelecionada)return mostrarNotificacao('Selecione uma turma','Escolha uma turma antes de cadastrar estudantes.','aviso');byId('modal-add-aluno').classList.remove('hidden');}
+    let adicionandoAlunos=false;
+    function salvarNovosAlunos(names,buttonId,clearId){
+      const texto=String(names||'');if(!texto.trim())return mostrarNotificacao('Nome não informado','Digite ou cole pelo menos um nome de estudante.','aviso');
+      if(adicionandoAlunos)return;adicionandoAlunos=true;
+      const btn=byId(buttonId),labelOriginal=buttonId==='btn-confirmar-add-aluno-individual'?'＋ Adicionar estudante':'Salvar estudantes';
+      btn.disabled=true;btn.classList.add('is-saving');btn.innerHTML='<span class="mini-spinner"></span> Salvando…';
+      const ordenar=byId('ordenar-alunos-alfabeticamente')?.checked===true;
+      const finalizar=()=>{adicionandoAlunos=false;btn.disabled=false;btn.classList.remove('is-saving');btn.textContent=labelOriginal;};
+      callServer('adicionarAlunosEmLote',[portalToken,escolaAtual.id,turmaSelecionada,texto,ordenar],r=>{
+        finalizar();if(r.success){fecharModal('modal-add-aluno');if(clearId)byId(clearId).value='';if(buttonId==='btn-confirmar-add-aluno-individual')byId('nome-novo-aluno-individual').value='';else byId('lista-novos-alunos').value='';mostrarNotificacao('Cadastro atualizado',r.message,'sucesso');trocarTurmaOuBimestre();}
+        else mostrarNotificacao('Não foi possível cadastrar',r.message,'aviso');
+      },false,finalizar);
+    }
+    function confirmarAddAlunosEmLote(){salvarNovosAlunos(byId('lista-novos-alunos').value,'btn-confirmar-add-alunos','lista-novos-alunos');}
+    function confirmarAddAlunoIndividual(){const nome=byId('nome-novo-aluno-individual').value.trim();if(!nome)return mostrarNotificacao('Nome não informado','Digite o nome completo do estudante.','aviso');salvarNovosAlunos(nome,'btn-confirmar-add-aluno-individual','nome-novo-aluno-individual');}
+
+    function abrirModalObs(studentId,disc){
+      const a=dadosTurmaCache?.alunos.find(x=>x.id===studentId);if(!a)return;
+      const obs=dadosTurmaCache.observacoes[studentId+'|'+disc]||{};const hasText=!!String(obs.texto||'').trim();
+      obsAtualContexto={studentId:studentId,disc:disc,recordId:obs.recordId||'',hasText:hasText,canManage:!hasText||obs.canManage===true};
+      byId('info-obs-aluno').textContent=a.nome+' · '+disc+' · '+byId('seletor-bimestre').value;
+      const field=byId('texto-obs');field.value=obs.texto||'';field.readOnly=hasText&&!obs.canManage;
+      byId('detalhes-obs-existente').textContent=hasText?'Última atualização: '+obs.data+' · '+obs.autor+(obs.canManage?'':' · Somente leitura'): 'Nenhuma observação registrada. Você pode adicionar a primeira observação.';
+      byId('btn-salvar-modal-obs').classList.toggle('hidden',hasText&&!obs.canManage);
+      byId('btn-salvar-modal-obs').textContent=hasText?'Salvar alterações':'Salvar observação';
+      byId('btn-excluir-modal-obs').classList.toggle('hidden',!(hasText&&obs.canManage));
+      byId('modal-obs').classList.remove('hidden');
+    }
+    function salvarObservacaoModal(){
+      if(!obsAtualContexto||!obsAtualContexto.canManage)return;
+      const btn=byId('btn-salvar-modal-obs'),original=btn.textContent;btn.disabled=true;btn.textContent='Salvando…';
+      const txt=byId('texto-obs').value;
+      callServer('salvarObservacao',[portalToken,escolaAtual.id,obsAtualContexto.studentId,turmaSelecionada,byId('seletor-bimestre').value,obsAtualContexto.disc,txt,obsAtualContexto.recordId],r=>{
+        btn.disabled=false;btn.textContent=original;if(!r.success)return mostrarNotificacao('Atenção',r.message,'aviso');
+        const key=obsAtualContexto.studentId+'|'+obsAtualContexto.disc;dadosTurmaCache.observacoes[key]={recordId:r.recordId,texto:txt,autor:r.autor,data:r.data,canManage:true};
+        fecharModal('modal-obs');renderizarTabelaNotas(dadosTurmaCache);mostrarNotificacao('Registro atualizado',r.message,'sucesso');
+      },false,()=>{btn.disabled=false;btn.textContent=original;});
+    }
+    function excluirObservacaoModal(){
+      if(!obsAtualContexto||!obsAtualContexto.hasText||!obsAtualContexto.canManage)return;
+      const ctx=Object.assign({},obsAtualContexto);const btn=byId('btn-excluir-modal-obs');
+      abrirConfirmacao('Excluir observação pedagógica','A observação deixará de aparecer na turma. As versões anteriores permanecerão preservadas no histórico técnico.',()=>{
+        btn.disabled=true;btn.textContent='Excluindo…';
+        callServer('excluirObservacao',[portalToken,escolaAtual.id,ctx.studentId,turmaSelecionada,byId('seletor-bimestre').value,ctx.disc,ctx.recordId],r=>{
+          btn.disabled=false;btn.textContent='Excluir observação';if(!r.success)return mostrarNotificacao('Atenção',r.message,'aviso');
+          fecharModal('modal-obs');mostrarNotificacao('Observação excluída',r.message,'sucesso');trocarTurmaOuBimestre();
+        },false,()=>{btn.disabled=false;btn.textContent='Excluir observação';});
+      });
+    }
+
+    function abrirModalReuniaoPais(){if(!dadosTurmaCache?.alunos?.length)return mostrarNotificacao('Selecione uma turma','Carregue uma turma com estudantes antes de abrir a ficha.','aviso');const s=byId('seletor-aluno-reuniao');s.innerHTML='<option value="">Selecione um estudante</option>'+dadosTurmaCache.alunos.map(a=>`<option value="${esc(a.id)}">${esc(a.nome)}</option>`).join('');byId('conteudo-ficha-aluno').classList.add('hidden');byId('modal-reuniao-pais').classList.remove('hidden');}
+    function carregarFichaAluno(){const id=byId('seletor-aluno-reuniao').value;if(!id){byId('conteudo-ficha-aluno').classList.add('hidden');return;}byId('conteudo-ficha-aluno').classList.remove('hidden');byId('ficha-nome-aluno').textContent='Carregando histórico…';callServer('carregarHistoricoAluno',[portalToken,escolaAtual.id,id],h=>renderizarFichaAlunoReuniao(h,id));}
+    function valoresNumericosNotas(notas){return (notas||[]).filter(v=>v!==''&&v!==null&&v!==undefined&&String(v).trim()!=='').map(v=>Number(String(v).replace(',','.'))).filter(Number.isFinite);}
+    function mediaAtualAluno(id){const a=dadosTurmaCache.alunos.find(x=>x.id===id);if(!a)return null;const v=valoresNumericosNotas(a.notas);return v.length?v.reduce((s,n)=>s+n,0)/v.length:null;}
+    function nivelMedia(m){if(m===null)return{txt:'Sem notas suficientes',cls:'status-pill status-locked'};if(m<5)return{txt:'Abaixo de 5,0',cls:'status-pill status-locked'};if(m<7)return{txt:'Faixa básica · 5,0–6,9',cls:'status-pill',};if(m<9)return{txt:'Faixa proficiente · 7,0–8,9',cls:'status-pill status-open'};return{txt:'Faixa avançada · 9,0–10',cls:'status-pill status-open'};}
+    function renderizarFichaAlunoReuniao(h,id){
+      const m=mediaAtualAluno(id);const turmaVals=dadosTurmaCache.alunos.map(a=>mediaAtualAluno(a.id)).filter(v=>v!==null);const mt=turmaVals.length?turmaVals.reduce((s,v)=>s+v,0)/turmaVals.length:null;const niv=nivelMedia(m);
+      byId('ficha-nome-aluno').textContent=h.aluno.nome;byId('ficha-turma-bimestre').textContent=h.aluno.turma+' · '+escolaAtual.name+' · '+byId('seletor-bimestre').value;byId('badge-proficiencia-aluno').textContent=niv.txt;byId('badge-proficiencia-aluno').className=niv.cls;byId('ficha-media-aluno').textContent=m===null?'—':m.toFixed(1);byId('ficha-media-turma').textContent=mt===null?'—':mt.toFixed(1);byId('ano-historico').textContent=h.ano;
+      renderizarGraficoHistorico(h);renderizarTabelaHistorico(h);graficoAtual=h;
+    }
+    function renderizarTabelaHistorico(h){const bims=bimesterList;byId('thead-historico').innerHTML='<tr><th>Disciplina</th>'+bims.map(b=>'<th>'+esc(b.replace(' BIMESTRE',''))+'</th>').join('')+'</tr>';const entries=Object.entries(h.disciplinas||{});byId('tbody-historico').innerHTML=entries.length?entries.map(([d,vals])=>'<tr><td><b>'+esc(d)+'</b></td>'+bims.map(b=>{const v=vals[b];if(v===null||v===undefined||!Number.isFinite(Number(v)))return '<td class="history-grade grade-neutral">—</td>';const n=Number(v);return '<td class="history-grade '+classeNota(n)+'">'+(Number.isInteger(n)?String(n):n.toFixed(1))+'</td>';}).join('')+'</tr>').join(''):'<tr><td colspan="5" class="empty">Ainda não existem notas registradas.</td></tr>';}
+    function desenharLinha(canvas,labels,values){if(!canvas)return;const ctx=canvas.getContext('2d');const w=canvas.clientWidth||600,h=canvas.clientHeight||185,dpr=window.devicePixelRatio||1;canvas.width=w*dpr;canvas.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);const pad={l:32,r:15,t:15,b:30},cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;ctx.font='10px system-ui';ctx.strokeStyle='#e2e8f0';ctx.fillStyle='#64748b';for(let n=0;n<=10;n+=2){const y=pad.t+ch-(n/10)*ch;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillText(String(n),6,y+3);}const pts=[];values.forEach((v,i)=>{const x=pad.l+(labels.length===1?cw/2:i*cw/(labels.length-1));const y=v===null?null:pad.t+ch-(v/10)*ch;pts.push({x,y,v});ctx.fillText(labels[i],x-24,h-8);});ctx.strokeStyle='#2563eb';ctx.lineWidth=2.5;ctx.beginPath();let active=false;pts.forEach(p=>{if(p.y===null){active=false;return;}if(!active){ctx.moveTo(p.x,p.y);active=true;}else ctx.lineTo(p.x,p.y);});ctx.stroke();pts.forEach(p=>{if(p.y===null)return;ctx.fillStyle='#2563eb';ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#1e293b';ctx.fillText(Number(p.v).toFixed(1),p.x-9,p.y-9);});}
+    function renderizarGraficoHistorico(h){desenharLinha(byId('grafico-historico'),h.historico.map(x=>x.bimestre.replace(' BIMESTRE','')),h.historico.map(x=>x.media));}
+
+    function abrirModalEditarAluno(studentId){
+      if(!usuarioPodeGerenciarAlunos())return mostrarNotificacao('Acesso restrito','Somente administradores da unidade podem editar estudantes.','aviso');
+      const student=dadosTurmaCache?.alunos.find(a=>a.id===studentId);if(!student)return;
+      alunoEdicaoAtual=studentId;byId('novo-nome-aluno').value=student.nome;byId('modal-editar-aluno').classList.remove('hidden');byId('novo-nome-aluno').focus();
+    }
+    function salvarEdicaoAluno(){
+      if(!usuarioPodeGerenciarAlunos()||!alunoEdicaoAtual)return;
+      const name=byId('novo-nome-aluno').value.trim();if(name.length<3)return mostrarNotificacao('Nome inválido','Informe o nome completo do estudante.','aviso');
+      callServer('editarAluno',[portalToken,escolaAtual.id,alunoEdicaoAtual,name],r=>{if(!r.success)return mostrarNotificacao('Não foi possível editar',r.message,'aviso');fecharModal('modal-editar-aluno');alunoEdicaoAtual=null;mostrarNotificacao('Cadastro atualizado',r.message,'sucesso');trocarTurmaOuBimestre();});
+    }
+    function abrirConfirmacaoExclusaoAluno(studentId){
+      if(!usuarioPodeGerenciarAlunos())return mostrarNotificacao('Acesso restrito','Somente administradores da unidade podem retirar estudantes da turma.','aviso');
+      const student=dadosTurmaCache?.alunos.find(a=>a.id===studentId);if(!student)return;
+      alunoExclusaoAtual=studentId;byId('texto-confirmar-exclusao-aluno').textContent='Confirma retirar '+student.nome+' desta turma? O estudante deixará de aparecer nos lançamentos, mas notas e histórico serão preservados.';byId('modal-confirmar-exclusao-aluno').classList.remove('hidden');
+    }
+    function confirmarExclusaoAluno(){
+      if(!usuarioPodeGerenciarAlunos()||!alunoExclusaoAtual)return;
+      const id=alunoExclusaoAtual;callServer('excluirAluno',[portalToken,escolaAtual.id,id],r=>{if(!r.success)return mostrarNotificacao('Não foi possível excluir',r.message,'aviso');fecharModal('modal-confirmar-exclusao-aluno');alunoExclusaoAtual=null;undoStack=undoStack.filter(tx=>!tx.changes.some(ch=>ch.studentId===id));mostrarNotificacao('Turma atualizada',r.message,'sucesso');trocarTurmaOuBimestre();});
+    }
+
+    function abrirModalGraficos(){if(!dadosTurmaCache?.alunos)return mostrarNotificacao('Selecione uma turma','Escolha uma turma para analisar os resultados.','aviso');byId('modal-graficos').classList.remove('hidden');renderizarConteudoProficiencia();carregarIndicadoresPedagogicos(true);}
+    function fecharModalGraficos(){fecharModal('modal-graficos');}
+    function alternarVisaoProficiencia(modo){modoProficienciaAtual=modo;byId('btn-visao-grupos').className='btn '+(modo==='grupos'?'btn-primary':'btn-soft');byId('btn-visao-individual').className='btn '+(modo==='individual'?'btn-primary':'btn-soft');renderizarConteudoProficiencia();}
+    function calcularGrupos(){const groups={insuficiente:[],basico:[],proficiente:[],avancado:[],sem:[]};dadosTurmaCache.alunos.forEach(a=>{const vals=valoresNumericosNotas(a.notas);if(!vals.length){groups.sem.push({nome:a.nome,media:null});return;}const media=vals.reduce((s,n)=>s+n,0)/vals.length;const item={nome:a.nome,id:a.id,media:media};if(media<5)groups.insuficiente.push(item);else if(media<7)groups.basico.push(item);else if(media<9)groups.proficiente.push(item);else groups.avancado.push(item);});return groups;}
+    function renderizarConteudoProficiencia(){
+      if(!dadosTurmaCache)return;
+      const g=calcularGrupos();
+      const keys=['insuficiente','basico','proficiente','avancado'];
+      const ids=['prof-count-insuficiente','prof-count-basico','prof-count-proficiente','prof-count-avancado'];
+      keys.forEach((k,i)=>{if(byId(ids[i]))byId(ids[i]).textContent=g[k].length;});
+      byId('subtitulo-proficiencia').textContent=escolaAtual.name+' · '+turmaSelecionada+' · '+byId('seletor-bimestre').value;
+      desenharBarras(byId('grafico-proficiencia'),['Abaixo de 5,0','5,0–6,9','7,0–8,9','9,0–10'],keys.map(k=>g[k].length));
+      const c=byId('conteudo-proficiencia');
+      if(modoProficienciaAtual==='grupos'){
+        c.innerHTML='<div class="two-col">'+keys.map((k,i)=>`<div class="section-card"><h4>${['🔴 Abaixo de 5,0','🟠 Faixa básica','🟢 Faixa proficiente','🔵 Faixa avançada'][i]} <span class="tiny">(${g[k].length})</span></h4>${g[k].length?g[k].map(a=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #edf1f5;font-size:11px"><span>${esc(a.nome)}</span><b>${a.media.toFixed(1)}</b></div>`).join(''):'<span class="tiny">Nenhum estudante nesta faixa.</span>'}</div>`).join('')+'</div>';
+      }else{
+        const arr=[...g.insuficiente,...g.basico,...g.proficiente,...g.avancado,...g.sem].sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));
+        c.innerHTML='<div style="overflow:auto"><table class="data-table"><thead><tr><th>Estudante</th><th>Média</th><th>Faixa de acompanhamento</th></tr></thead><tbody>'+arr.map(a=>`<tr><td>${esc(a.nome)}</td><td>${a.media===null?'—':a.media.toFixed(1)}</td><td>${a.media===null?'Sem notas':a.media<5?'Abaixo de 5,0':a.media<7?'Básica':a.media<9?'Proficiente':'Avançada'}</td></tr>`).join('')+'</tbody></table></div>';
+      }
+    }
+
+    function carregarIndicadoresPedagogicos(force){
+      if(!escolaAtual||!turmaSelecionada)return;
+      const bimestre=byId('seletor-bimestre').value;
+      const key=[escolaAtual.id,turmaSelecionada,bimestre,escolaAtual.year||''].join('|');
+      const status=byId('indicadores-pedagogicos-status');
+      const req=++indicadoresRequestSeq;
+      if(!force&&indicadoresTurmaCache&&indicadoresTurmaCacheKey===key){renderizarIndicadoresPedagogicos(indicadoresTurmaCache);return;}
+      status.textContent='Atualizando indicadores…';status.classList.add('loading');
+      byId('tabela-cobertura-indicadores').innerHTML='<tr><td colspan="4" class="indicator-empty">Consultando os registros do bimestre…</td></tr>';
+      callServer('obterIndicadoresPedagogicos',[portalToken,escolaAtual.id,turmaSelecionada,bimestre],data=>{
+        if(req!==indicadoresRequestSeq||!escolaAtual||key!==[escolaAtual.id,turmaSelecionada,byId('seletor-bimestre').value,escolaAtual.year||''].join('|'))return;
+        indicadoresTurmaCache=data;indicadoresTurmaCacheKey=key;renderizarIndicadoresPedagogicos(data);
+      },true,message=>{
+        if(req!==indicadoresRequestSeq)return;
+        status.classList.remove('loading');status.textContent='Não foi possível carregar os indicadores';
+        byId('tabela-cobertura-indicadores').innerHTML='<tr><td colspan="4" class="indicator-empty">'+esc(message||'Falha ao consultar os dados.')+'</td></tr>';
+      });
+    }
+    function renderizarIndicadoresPedagogicos(data){
+      if(!data)return;
+      const status=byId('indicadores-pedagogicos-status');status.classList.remove('loading');
+      status.textContent=(data.totalEstudantes||0)+' estudante(s) · '+esc(data.bimestre||'');
+      const coverage=Array.isArray(data.cobertura)?data.cobertura:[];
+      const tbody=byId('tabela-cobertura-indicadores');
+      tbody.innerHTML=coverage.length?coverage.map(item=>{
+        const teachers=(item.professores||[]).map(p=>'<div><span>'+esc(p.email)+'</span><b>'+p.notasLancadas+'/'+p.totalEstudantes+' · '+Number(p.percentualTurma||0).toFixed(1)+'%</b></div>').join('')||'<span class="indicator-empty">Sem lançamentos por professor.</span>';
+        const percent=Math.max(0,Math.min(100,Number(item.percentual)||0));
+        return '<tr><td><strong>'+esc(item.disciplina)+'</strong></td><td>'+Number(item.notasLancadas||0)+'/'+Number(item.totalEsperado||0)+'</td><td><div class="indicator-coverage"><strong>'+percent.toFixed(1)+'%</strong><div class="indicator-track"><span style="width:'+percent+'%"></span></div></div></td><td><div class="indicator-teachers">'+teachers+'</div></td></tr>';
+      }).join(''):'<tr><td colspan="4" class="indicator-empty">Não há disciplinas ou estudantes ativos para calcular a cobertura.</td></tr>';
+
+      const history=Array.isArray(data.evolucao)?data.evolucao:[];
+      desenharLinha(byId('grafico-evolucao-turma'),history.map(x=>String(x.bimestre||'').replace(' BIMESTRE','')),history.map(x=>x.media===null?null:Number(x.media)));
+
+      const alerts=Array.isArray(data.disciplinasAlerta)?data.disciplinasAlerta:[];
+      byId('lista-disciplinas-alerta').innerHTML=alerts.length?alerts.map((a,i)=>'<div class="indicator-list-item"><span><strong>'+(i+1)+'. '+esc(a.disciplina)+'</strong><br><span class="tiny">'+Number(a.notasAbaixoDeCinco||0)+' de '+Number(a.notasLancadas||0)+' notas abaixo de 5,0</span></span><strong style="color:#b91c1c">'+Number(a.percentualAbaixoDeCinco||0).toFixed(1)+'%</strong></div>').join(''):'<div class="indicator-empty">Nenhuma disciplina possui notas abaixo de 5,0 entre os registros lançados.</div>';
+
+      const without=Array.isArray(data.estudantesSemRegistros)?data.estudantesSemRegistros:[];
+      byId('lista-estudantes-sem-registro').innerHTML=without.length?'<div class="tiny">'+without.length+' estudante(s) sem nenhuma nota registrada neste bimestre:</div>'+without.map(a=>'<div class="indicator-list-item"><span>'+esc(a.nome)+'</span><strong style="color:#b91c1c">Sem registros</strong></div>').join(''):'<div class="indicator-empty">Todos os estudantes ativos possuem pelo menos um registro de nota neste bimestre.</div>';
+    }
+
+    function desenharBarras(canvas,labels,values){const ctx=canvas.getContext('2d'),w=canvas.clientWidth||650,h=canvas.clientHeight||185,dpr=window.devicePixelRatio||1;canvas.width=w*dpr;canvas.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);const max=Math.max(1,...values),pad=30,base=h-28,gap=17,bw=(w-2*pad-gap*(values.length-1))/values.length;ctx.font='10px system-ui';values.forEach((v,i)=>{const x=pad+i*(bw+gap),bh=(base-18)*(v/max);ctx.fillStyle=['#e11d48','#d97706','#059669','#2563eb','#94a3b8'][i];ctx.fillRect(x,base-bh,bw,bh);ctx.fillStyle='#334155';ctx.textAlign='center';ctx.fillText(String(v),x+bw/2,base-bh-6);ctx.fillStyle='#64748b';ctx.fillText(labels[i],x+bw/2,h-8);});}
+    async function gerarPDFProficiencia(){
+      if(!window.jspdf?.jsPDF)return mostrarNotificacao('Biblioteca não disponível','Não foi possível carregar o gerador de PDF. Atualize a página e tente novamente.','aviso');
+      const doc=new window.jspdf.jsPDF({orientation:'portrait',unit:'mm',format:'a4'}),g=calcularGrupos();
+      const pageW=doc.internal.pageSize.getWidth(),pageH=doc.internal.pageSize.getHeight(),left=14,right=14,rowH=8;
+      const rows=[...g.insuficiente.map(a=>({...a,faixa:'Abaixo de 5,0',rgb:[254,226,226],color:[153,27,27]})),...g.basico.map(a=>({...a,faixa:'Básica · 5,0–6,9',rgb:[254,243,199],color:[146,64,14]})),...g.proficiente.map(a=>({...a,faixa:'Proficiente · 7,0–8,9',rgb:[220,252,231],color:[22,101,52]})),...g.avancado.map(a=>({...a,faixa:'Avançada · 9,0–10',rgb:[219,234,254],color:[29,78,216]})),...g.sem.map(a=>({...a,faixa:'Sem notas',rgb:[248,250,252],color:[71,85,105]}))].sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));
+      let page=0,rowIndex=0;
+      function drawPageHeader(){
+        page++;if(page>1)doc.addPage();
+        doc.setFillColor(20,36,58);doc.rect(0,0,pageW,35,'F');
+        doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(15);doc.text(marcaAtual?.appName||'Portal de Notas e Acompanhamento Pedagógico',left,13);
+        doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text(escolaAtual.name,left,20);
+        doc.text(turmaSelecionada+' · '+byId('seletor-bimestre').value+' · Ano letivo '+(escolaAtual.year||new Date().getFullYear()),left,26);
+        doc.setFontSize(8);doc.text('Relatório de acompanhamento pedagógico · '+new Date().toLocaleDateString('pt-BR'),left,31);
+        let y=43;
+        const stats=[['Abaixo de 5,0',g.insuficiente.length,[190,24,93]],['Básica',g.basico.length,[217,119,6]],['Proficiente',g.proficiente.length,[5,150,105]],['Avançada',g.avancado.length,[37,99,235]]];
+        const gap=3,cardW=(pageW-left-right-gap*3)/4;
+        stats.forEach((it,i)=>{const x=left+i*(cardW+gap);doc.setFillColor(245,248,252);doc.setDrawColor(226,232,240);doc.roundedRect(x,y,cardW,15,2,2,'FD');doc.setTextColor(...it[2]);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text(String(it[1]),x+4,y+6);doc.setFont('helvetica','normal');doc.setFontSize(6.7);doc.setTextColor(71,85,105);doc.text(it[0],x+4,y+11);});
+        y+=23;
+        doc.setFillColor(30,53,82);doc.setDrawColor(210,220,232);doc.rect(left,y,pageW-left-right,8,'FD');doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('ESTUDANTE',left+2,y+5.2);doc.text('MÉDIA',left+112,y+5.2,{align:'center'});doc.text('FAIXA DE ACOMPANHAMENTO',left+122,y+5.2);
+        return y+8;
+      }
+      let y=drawPageHeader();
+      const bottom=pageH-13;
+      rows.forEach((item,i)=>{
+        if(y+rowH>bottom){doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,116,139);doc.text('Indicadores internos de acompanhamento · Página '+page,left,pageH-6);y=drawPageHeader();}
+        const bg=i%2===0?[255,255,255]:[248,250,252];doc.setFillColor(...bg);doc.setDrawColor(226,232,240);doc.rect(left,y,pageW-left-right,rowH,'FD');
+        doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(30,41,59);doc.text(doc.splitTextToSize(item.nome,94)[0]||'',left+2,y+5.3);
+        doc.setFont('helvetica','bold');doc.text(item.media===null?'—':item.media.toFixed(1),left+112,y+5.3,{align:'center'});
+        doc.setFillColor(...item.rgb);doc.rect(left+122,y+1.2,62,5.6,'F');doc.setTextColor(...item.color);doc.setFontSize(7);doc.text(item.faixa,left+124,y+5.1);
+        y+=rowH;rowIndex++;
+      });
+      doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(100,116,139);doc.text('As faixas são indicadores internos e não substituem instrumentos oficiais de avaliação.',left,pageH-6);
+      const file='Analise_Proficiencia_'+turmaSelecionada.replace(/\s+/g,'_')+'_'+byId('seletor-bimestre').value.replace(/\s+/g,'_')+'.pdf';
+      await entregarArquivo(doc.output('blob'),file,'application/pdf','.pdf');
+    }
+
+
+    function dadosExportacaoNotas(){
+      if(!dadosTurmaCache?.alunos?.length)return null;
+      const disciplinas=dadosTurmaCache.disciplinas.filter(d=>disciplinasVisiveis.includes(d));
+      return {disciplinas:disciplinas,alunos:dadosTurmaCache.alunos,escola:escolaAtual.name,turma:turmaSelecionada,bimestre:byId('seletor-bimestre').value,ano:escolaAtual.year||new Date().getFullYear()};
+    }
+    async function entregarArquivo(blob,fileName,mime,extension){
+      // O seletor precisa ser chamado diretamente a partir do clique do usuário.
+      if(window.isSecureContext&&typeof window.showSaveFilePicker==='function'){
+        try{
+          const handle=await window.showSaveFilePicker({
+            suggestedName:fileName,
+            types:[{description:mime==='application/pdf'?'Documento PDF':'Planilha ou arquivo de dados',accept:{[mime]:[extension]}}],
+            excludeAcceptAllOption:false
+          });
+          const writable=await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          mostrarNotificacao('Arquivo salvo','O arquivo foi salvo na pasta escolhida.','sucesso');
+          return true;
+        }catch(err){
+          if(err?.name==='AbortError')return false;
+          // Em navegadores que expõem a API mas recusam o contexto/permissionamento,
+          // segue para o download padrão sem abrir abas ou janelas adicionais.
+        }
+      }
+      const url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download=fileName;a.style.display='none';
+      document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),2000);
+      mostrarNotificacao('Download iniciado','Este navegador não oferece o seletor de pasta nesta sessão. O arquivo foi enviado para a pasta padrão de downloads; a escolha do destino depende das configurações do navegador.','sucesso');
+      return true;
+    }
+
+    async function exportarNotasExcel(){
+      const d=dadosExportacaoNotas();if(!d)return mostrarNotificacao('Selecione uma turma','Carregue a turma antes de exportar.','aviso');
+      const rows=[['RELATÓRIO DE NOTAS DA TURMA'],['Escola',d.escola],['Turma',d.turma],['Bimestre',d.bimestre],['Ano letivo',d.ano],[],['Estudante',...d.disciplinas]];
+      d.alunos.forEach(a=>rows.push([a.nome,...d.disciplinas.map(disc=>{const i=dadosTurmaCache.disciplinas.indexOf(disc),v=a.notas[i];return v===''||v===null||v===undefined?'':Number(v);})]));
+      const file='Notas_'+d.turma.replace(/\s+/g,'_')+'_'+d.bimestre.replace(/\s+/g,'_')+'.xlsx';
+      if(window.XLSX){
+        const ws=XLSX.utils.aoa_to_sheet(rows);const range=XLSX.utils.decode_range(ws['!ref']);
+        ws['!cols']=[{wch:36},...d.disciplinas.map(()=>({wch:18}))];
+        ws['!views']=[{state:'frozen',xSplit:1,ySplit:7}];ws['!pageSetup']={orientation:'landscape',paperSize:9,fitToWidth:1,fitToHeight:0};ws['!printOptions']={horizontalCentered:true};ws['!margins']={left:0.25,right:0.25,top:0.5,bottom:0.5,header:0.2,footer:0.2};
+        const border={top:{style:'thin',color:{rgb:'CBD5E1'}},bottom:{style:'thin',color:{rgb:'CBD5E1'}},left:{style:'thin',color:{rgb:'CBD5E1'}},right:{style:'thin',color:{rgb:'CBD5E1'}}};
+        for(let R=0;R<=range.e.r;R++)for(let C=0;C<=range.e.c;C++){
+          const addr=XLSX.utils.encode_cell({r:R,c:C});if(!ws[addr])continue;
+          ws[addr].s={font:{name:'Arial',sz:10,color:{rgb:'1E293B'}},alignment:{vertical:'center',horizontal:C===0?'left':'center'},border:border};
+          if(R===0){ws[addr].s={font:{name:'Arial',sz:15,bold:true,color:{rgb:'FFFFFF'}},fill:{fgColor:{rgb:'14243A'}},alignment:{vertical:'center',horizontal:'left'},border:border};}
+          else if(R===6){ws[addr].s={font:{name:'Arial',sz:10,bold:true,color:{rgb:'FFFFFF'}},fill:{fgColor:{rgb:'1E3552'}},alignment:{vertical:'center',horizontal:C===0?'left':'center',wrapText:true},border:border};}
+          else if(R>=7){const v=ws[addr].v;if(C>0&&v!==''&&Number.isFinite(Number(v))){const n=Number(v);let fill='F8FAFC',color='334155';if(n<5){fill='FEE2E2';color='991B1B';}else if(n<7){fill='FEF3C7';color='92400E';}else if(n<9){fill='DCFCE7';color='166534';}else{fill='DBEAFE';color='1D4ED8';}ws[addr].s={font:{name:'Arial',sz:11,bold:true,color:{rgb:color}},fill:{fgColor:{rgb:fill}},alignment:{vertical:'center',horizontal:'center'},border:border};}else if(R%2===1){ws[addr].s.fill={fgColor:{rgb:'F8FAFC'}};}}
+        }
+        ws['!rows']=[{hpt:26},{hpt:19},{hpt:19},{hpt:19},{hpt:19},{hpt:8},{hpt:23},...d.alunos.map(()=>({hpt:20}))];
+        const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Notas da turma');
+        const array=XLSX.write(wb,{bookType:'xlsx',type:'array',cellStyles:true});const blob=new Blob([array],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+        await entregarArquivo(blob,file,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','.xlsx');return;
+      }
+      const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
+      await entregarArquivo(new Blob([csv],{type:'text/csv;charset=utf-8;'}),file.replace(/\.xlsx$/i,'.csv'),'text/csv','.csv');
+      mostrarNotificacao('Exportação alternativa','A biblioteca de planilhas não foi carregada. O arquivo CSV pode ser aberto no Excel, mas não contém a formatação avançada.','aviso');
+    }
+    function imprimirRelatorioNotasPaisagem(d){
+      const count=Math.max(1,d.disciplinas.length),firstWidth=18,subjectWidth=(100-firstWidth)/count;
+      const headers=['Estudante',...d.disciplinas];
+      const rows=d.alunos.map(a=>[a.nome,...d.disciplinas.map(disc=>{const idx=dadosTurmaCache.disciplinas.indexOf(disc);const v=a.notas[idx];return v===null||v===undefined||v===''?'—':String(v);})]);
+      const table='<table><colgroup><col style="width:'+firstWidth+'%">'+d.disciplinas.map(()=>'<col style="width:'+subjectWidth+'%">').join('')+'</colgroup><thead><tr>'+headers.map(v=>'<th>'+esc(v)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+row.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+      const subjectFont=Math.max(5,Math.min(8,subjectWidth*0.55));
+      const html='<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Notas — '+esc(d.turma)+'</title><style>@page{size:A4 landscape;margin:8mm}*{box-sizing:border-box}body{font:9px Arial,sans-serif;color:#1e293b}h1{font-size:15px;margin:0 0 4px}p{font-size:9px;margin:3px 0 9px}table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:'+subjectFont+'pt}thead{display:table-header-group}tr{break-inside:avoid;page-break-inside:avoid}th,td{border:1px solid #cbd5e1;padding:3px 2px;text-align:center;overflow-wrap:anywhere}th:first-child,td:first-child{text-align:left;font-size:8pt}th{background:#1e3552;color:white;font-size:'+subjectFont+'pt}tr:nth-child(even) td{background:#f8fafc}</style></head><body><h1>'+esc(marcaAtual?.appName||'Portal de Notas e Acompanhamento Pedagógico')+'</h1><p>'+esc(d.escola)+' · '+esc(d.turma)+' · '+esc(d.bimestre)+' · Ano letivo '+esc(d.ano)+'</p>'+table+'</body></html>';
+      const frame=document.createElement('iframe');frame.style.position='fixed';frame.style.right='0';frame.style.bottom='0';frame.style.width='0';frame.style.height='0';frame.style.border='0';document.body.appendChild(frame);
+      let printStarted=false;const startPrint=()=>{if(printStarted)return;printStarted=true;try{frame.contentWindow.focus();frame.contentWindow.print();}finally{setTimeout(()=>frame.remove(),1800);}};
+      frame.onload=()=>setTimeout(startPrint,120);const doc=frame.contentWindow.document;doc.open();doc.write(html);doc.close();setTimeout(startPrint,650);
+    }
+
+    async function exportarNotasPDF(){
+      const d=dadosExportacaoNotas();
+      if(!d)return mostrarNotificacao('Selecione uma turma','Carregue a turma antes de exportar.','aviso');
+      // O PDF de notas é um relatório completo da turma: inclui todas as disciplinas
+      // cadastradas, independentemente do filtro visual aplicado à grade na tela.
+      d.disciplinas=[...(dadosTurmaCache?.disciplinas||[])];
+      if(!d.disciplinas.length)return mostrarNotificacao('Sem disciplinas','Não há disciplinas cadastradas para exportar.','aviso');
+      if(!d.alunos.length)return mostrarNotificacao('Sem estudantes','Não há estudantes para exportar nesta turma.','aviso');
+      if(!window.jspdf?.jsPDF){imprimirRelatorioNotasPaisagem(d);return;}
+
+      const doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+      const pageW=doc.internal.pageSize.getWidth(),pageH=doc.internal.pageSize.getHeight();
+      const left=7,right=7,top=7,usableW=pageW-left-right;
+      // Todas as disciplinas são colocadas na largura útil de cada página. Não existe
+      // divisão horizontal em grupos: cada página contém a turma inteira em colunas.
+      const nameW=Math.min(54,Math.max(38,usableW*0.19));
+      const colW=(usableW-nameW)/d.disciplinas.length;
+      const headerH=colW<8?15:13;
+      const rowH=5.35,tableTop=top+27,bottom=pageH-11;
+      const rowsPerPage=Math.max(1,Math.floor((bottom-tableTop-headerH)/rowH));
+      const pageCount=Math.ceil(d.alunos.length/rowsPerPage);
+      const headerFont=Math.max(3.6,Math.min(6.2,colW*0.46));
+      const nameFont=Math.max(5.4,Math.min(7.1,nameW*0.13));
+      const noteFont=Math.max(5.2,Math.min(7.0,colW*0.58));
+
+      for(let pageIndex=0;pageIndex<pageCount;pageIndex++){
+        if(pageIndex>0)doc.addPage('a4','landscape');
+        const startIndex=pageIndex*rowsPerPage;
+        const pageStudents=d.alunos.slice(startIndex,startIndex+rowsPerPage);
+
+        doc.setFillColor(20,36,58);doc.rect(0,0,pageW,top+23,'F');
+        doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(12.5);
+        doc.text(marcaAtual?.appName||'Portal de Notas e Acompanhamento Pedagógico',left,13);
+        doc.setFont('helvetica','normal');doc.setFontSize(8);
+        doc.text(d.escola,left,19);doc.text(d.turma+' · '+d.bimestre+' · Ano letivo '+d.ano,left,24);
+
+        let y=tableTop;
+        // Cabeçalho fixo: nome do estudante + todas as disciplinas visíveis.
+        doc.setFillColor(30,53,82);doc.setDrawColor(205,216,229);doc.rect(left,y,nameW,headerH,'FD');
+        doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(7);
+        doc.text('ESTUDANTE',left+2,y+headerH/2+1.1);
+        d.disciplinas.forEach((disc,i)=>{
+          const x=left+nameW+i*colW;
+          doc.setFillColor(30,53,82);doc.setDrawColor(205,216,229);doc.rect(x,y,colW,headerH,'FD');
+          doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(headerFont);
+          let lines=doc.splitTextToSize(String(disc),Math.max(2.6,colW-1.0));
+          if(lines.length>3)lines=[lines[0],lines[1],String(lines[2]).slice(0,Math.max(1,Math.floor(colW*1.35)))+'…'];
+          const lineStep=Math.max(1.55,headerFont*0.36);
+          const blockH=(lines.length-1)*lineStep;
+          doc.text(lines,x+colW/2,y+headerH/2-blockH/2+headerFont*0.12,{align:'center',lineHeightFactor:1.0,maxWidth:Math.max(2.6,colW-1.0)});
+        });
+        y+=headerH;
+
+        pageStudents.forEach((a,rowIndex)=>{
+          const fill=rowIndex%2?[248,250,252]:[255,255,255];
+          doc.setFillColor(...fill);doc.setDrawColor(225,232,240);doc.rect(left,y,nameW,rowH,'FD');
+          doc.setTextColor(30,41,59);doc.setFont('helvetica','normal');doc.setFontSize(nameFont);
+          const studentName=doc.splitTextToSize(String(a.nome||''),Math.max(18,nameW-3))[0]||'';
+          doc.text(studentName,left+1.7,y+rowH/2+1.0);
+          d.disciplinas.forEach((disc,i)=>{
+            const idx=dadosTurmaCache.disciplinas.indexOf(disc),raw=a.notas[idx];
+            const empty=raw===''||raw===null||raw===undefined;
+            const n=empty?null:Number(raw),x=left+nameW+i*colW;
+            let cellFill=[248,250,252],textColor=[51,65,85];
+            if(n!==null&&Number.isFinite(n)){
+              if(n<5){cellFill=[254,226,226];textColor=[153,27,27];}
+              else if(n<7){cellFill=[254,243,199];textColor=[146,64,14];}
+              else if(n<9){cellFill=[220,252,231];textColor=[22,101,52];}
+              else{cellFill=[219,234,254];textColor=[29,78,216];}
+            }
+            doc.setFillColor(...cellFill);doc.setDrawColor(225,232,240);doc.rect(x,y,colW,rowH,'FD');
+            doc.setFont('helvetica','bold');doc.setFontSize(noteFont);doc.setTextColor(...textColor);
+            doc.text(n===null||!Number.isFinite(n)?'—':String(n),x+colW/2,y+rowH/2+1.0,{align:'center'});
+          });
+          y+=rowH;
+        });
+        doc.setFont('helvetica','normal');doc.setTextColor(100,116,139);doc.setFontSize(6.5);
+        doc.text('Gerado em '+new Date().toLocaleDateString('pt-BR')+' · Página '+(pageIndex+1)+' de '+pageCount,left,pageH-5);
+      }
+      const file='Notas_'+d.turma.replace(/\s+/g,'_')+'_'+d.bimestre.replace(/\s+/g,'_')+'.pdf';
+      await entregarArquivo(doc.output('blob'),file,'application/pdf','.pdf');
+    }
+
+    let presenceTimer=null;
+    function podeAtualizarTabelaAgora(){
+      if(notasPendentes.size||gradeSavesInFlight>0)return false;
+      const active=document.activeElement;
+      if(active?.classList?.contains('grade-input'))return false;
+      // Não substituir dados enquanto algum formulário de edição da turma estiver aberto.
+      if(['modal-obs','modal-add-aluno','modal-editar-aluno','modal-confirmar-exclusao-aluno'].some(id=>!byId(id).classList.contains('hidden')))return false;
+      return true;
+    }
+    function atualizarTabelaEmSegundoPlano(){
+      if(!portalToken||!escolaAtual||!turmaSelecionada||!podeAtualizarTabelaAgora()||syncRefreshInFlight)return false;
+      syncRefreshInFlight=true;
+      const token=portalToken,schoolId=escolaAtual.id,turma=turmaSelecionada,bimestre=byId('seletor-bimestre').value;
+      const visiveis=[...disciplinasVisiveis];
+      callServer('carregarDadosTurma',[token,schoolId,turma,bimestre],dados=>{
+        if(token!==portalToken||escolaAtual?.id!==schoolId)return;
+        syncRefreshInFlight=false;
+        if(turmaSelecionada!==turma||byId('seletor-bimestre').value!==bimestre)return;
+        dadosTurmaCache=dados;
+        if(Number(dados.syncVersion))syncVersionAtual=Number(dados.syncVersion);
+        const existentes=new Set(dados.disciplinas||[]);
+        disciplinasVisiveis=visiveis.filter(d=>existentes.has(d));
+        if(!disciplinasVisiveis.length)disciplinasVisiveis=[...(dados.disciplinas||[])];
+        construirMenuFiltroDisciplinas(dados.disciplinas||[]);
+        document.querySelectorAll('.chk-disc-item').forEach(ch=>{ch.checked=disciplinasVisiveis.includes(ch.value);});
+        renderizarTabelaNotas(dados);filtrarAlunos();
+        if(!byId('modal-adm').classList.contains('hidden'))carregarDadosAdministrativos(true);
+        // Mantém a ficha individual aberta alinhada às notas e observações recém-atualizadas.
+        const fichaSelect=byId('seletor-aluno-reuniao');
+        if(!byId('modal-reuniao-pais').classList.contains('hidden')&&fichaSelect?.value){
+          const selectedId=fichaSelect.value;
+          fichaSelect.innerHTML='<option value="">Selecione um estudante</option>'+(dados.alunos||[]).map(a=>`<option value="${esc(a.id)}">${esc(a.nome)}</option>`).join('');
+          if((dados.alunos||[]).some(a=>String(a.id)===String(selectedId))){fichaSelect.value=selectedId;carregarFichaAluno();}
+          else{fichaSelect.value='';byId('conteudo-ficha-aluno').classList.add('hidden');}
+        }
+      },true,()=>{if(token===portalToken&&escolaAtual?.id===schoolId)syncRefreshInFlight=false;});
+      return true;
+    }
+    function verificarSincronizacaoTempoReal(){
+      if(!portalToken||!escolaAtual||syncInFlight||syncRefreshInFlight)return;
+      syncInFlight=true;
+      const token=portalToken,schoolId=escolaAtual.id,version=syncVersionAtual;
+      callServer('verificarAtualizacoesPortal',[token,schoolId,version],r=>{
+        if(token!==portalToken||escolaAtual?.id!==schoolId)return;
+        syncInFlight=false;
+        if(!r?.success)return;
+        if(r.changedByOther){
+          if(turmaSelecionada&&!podeAtualizarTabelaAgora())return; // tenta novamente no próximo ciclo sem avançar a versão
+          if(turmaSelecionada)atualizarTabelaEmSegundoPlano();
+          else {syncVersionAtual=Number(r.version)||syncVersionAtual;if(!byId('modal-adm').classList.contains('hidden'))carregarDadosAdministrativos(true);}
+        }else syncVersionAtual=Number(r.version)||syncVersionAtual;
+      },true,()=>{if(token===portalToken&&escolaAtual?.id===schoolId)syncInFlight=false;});
+    }
+    function iniciarSincronizacaoTempoReal(){
+      if(syncTimer)clearInterval(syncTimer);
+      verificarSincronizacaoTempoReal();
+      syncTimer=setInterval(verificarSincronizacaoTempoReal,6500);
+    }
+
+    function iniciaisEmail(email){const local=String(email||'').split('@')[0];const bits=local.split(/[._-]+/).filter(Boolean);return (bits.length>1?(bits[0][0]+bits[1][0]):local.slice(0,2)).toUpperCase();}
+    function renderizarUsuariosOnline(emails){const box=byId('online-users');if(!box)return;const meuEmail=String(usuarioLogado?.email||'').trim().toLowerCase();const list=(emails||[]).filter(email=>String(email||'').trim().toLowerCase()!==meuEmail);box.innerHTML=list.slice(0,5).map(email=>`<span class="online-user-chip" title="${esc(email)}" aria-label="${esc(email)}">${esc(iniciaisEmail(email))}</span>`).join('')+(list.length>5?`<span class="online-count" title="${esc(list.slice(5).join(', '))}">+${list.length-5}</span>`:'')+(list.length?`<span class="online-count">online</span>`:'');}
+    function atualizarPresencaOnline(){if(!portalToken||!escolaAtual)return;callServer('heartbeatPortal',[portalToken,escolaAtual.id],r=>{if(r?.success)renderizarUsuariosOnline(r.users||[]);},true);}
+    function iniciarPresencaOnline(){if(presenceTimer)clearInterval(presenceTimer);atualizarPresencaOnline();presenceTimer=setInterval(atualizarPresencaOnline,45000);}
+    function abrirPainelAdm(){
+      if(usuarioLogado?.master!==true&&String(usuarioLogado?.perfil||'').toUpperCase()!=='ADM')return;
+      byId('adm-nome-escola').value=escolaAtual.name;byId('adm-bimestre-ativo').value=byId('seletor-bimestre').value;
+      byId('modal-adm').classList.remove('hidden');carregarDadosAdministrativos(false);carregarDisciplinasAdministracao();
+    }
+    function adminCacheKey(){return 'ppi_admin_cache_'+encodeURIComponent(String(usuarioLogado?.email||''))+'_'+String(escolaAtual?.id||'');}
+    function aplicarDadosAdministrativos(d){
+      byId('adm-nome-escola').value=escolaAtual.name;byId('adm-bimestre-ativo').value=d.bimestreAtivo;
+      (d.bloqueiosBimestres||[false,false,false,false]).forEach((v,i)=>byId('toggle-b'+(i+1)).checked=!v);
+      renderizarListaEmails('lista-professores',d.professores||[],'PROFESSOR');renderizarListaEmails('lista-adms',d.adms||[],'ADM');
+    }
+    function carregarDadosAdministrativos(force){
+      const key=adminCacheKey(),now=Date.now();let cached=null;
+      try{cached=JSON.parse(sessionStorage.getItem(key)||'null');}catch(e){}
+      if(!force&&cached&&now-cached.ts<30000){aplicarDadosAdministrativos(cached.data);return;}
+      if(adminLoading)return;adminLoading=true;byId('adm-loading').classList.remove('hidden');
+      callServer('obterDadosPortal',[portalToken,escolaAtual.id],d=>{
+        adminLoading=false;byId('adm-loading').classList.add('hidden');aplicarDadosAdministrativos(d);
+        try{sessionStorage.setItem(key,JSON.stringify({ts:Date.now(),data:{bimestreAtivo:d.bimestreAtivo,bloqueiosBimestres:d.bloqueiosBimestres,professores:d.professores,adms:d.adms,school:d.school,schools:d.schools}}));}catch(e){}
+      },true,()=>{adminLoading=false;byId('adm-loading').classList.add('hidden');});
+    }
+    function invalidarCacheAdmin(){try{sessionStorage.removeItem(adminCacheKey());}catch(e){}}
+    const adminActionBusy=new Set();
+    function executarAcaoAdmin(buttonId,busyLabel,action){
+      const btn=byId(buttonId);if(!btn||adminActionBusy.has(buttonId))return;
+      const original=btn.textContent;adminActionBusy.add(buttonId);btn.disabled=true;btn.textContent=busyLabel;
+      const done=()=>{if(!adminActionBusy.has(buttonId))return;adminActionBusy.delete(buttonId);btn.disabled=false;btn.textContent=original;};
+      try{action(done);}catch(err){done();throw err;}
+    }
+    function salvarNomeEscola(){
+      const name=byId('adm-nome-escola').value.trim();if(name.length<4)return mostrarNotificacao('Nome inválido','Informe o nome completo da escola.','aviso');
+      executarAcaoAdmin('btn-adm-salvar-nome','Salvando…',done=>callServer('atualizarNomeEscola',[portalToken,escolaAtual.id,name],r=>{done();if(r.success){escolaAtual.name=name;byId('nome-escola-header').textContent=name;escolasDisponiveis=escolasDisponiveis.map(s=>s.id===escolaAtual.id?Object.assign({},s,{name:name}):s);const sel=byId('seletor-escola');if(!sel.classList.contains('hidden')){const selected=sel.value;sel.innerHTML=escolasDisponiveis.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');sel.value=selected;}mostrarNotificacao('Identificação atualizada',r.message,'sucesso');}else mostrarNotificacao('Atenção',r.message,'aviso');},false,()=>done()));
+    }
+    let disciplinaEmEdicao='';
+    function carregarDisciplinasAdministracao(){
+      const turma=byId('adm-turma-disciplinas')?.value;if(!turma||!escolaAtual||(usuarioLogado?.master!==true&&String(usuarioLogado?.perfil||'').toUpperCase()!=='ADM'))return;
+      const box=byId('lista-disciplinas-admin');if(box)box.innerHTML='<div class="tiny">Carregando disciplinas…</div>';
+      callServer('obterDisciplinasDaTurma',[portalToken,escolaAtual.id,turma],lista=>renderizarDisciplinasAdministracao(lista||[]),true);
+    }
+    function renderizarDisciplinasAdministracao(lista){
+      const box=byId('lista-disciplinas-admin');if(!box)return;box.innerHTML='';
+      if(!lista.length){box.innerHTML='<div class="tiny">Nenhuma disciplina ativa nesta turma.</div>';return;}
+      lista.forEach(item=>{
+        const row=document.createElement('div'),name=document.createElement('span'),actions=document.createElement('div'),edit=document.createElement('button'),del=document.createElement('button');
+        row.className='discipline-admin-row';name.textContent=item.disciplina;edit.type='button';edit.className='mini-btn';edit.textContent='Editar';edit.onclick=()=>abrirModalEditarDisciplina(item.disciplina);
+        del.type='button';del.className='mini-btn danger';del.textContent='Excluir';del.onclick=()=>removerDisciplinaAdministracao(item.disciplina);
+        actions.append(edit,del);row.append(name,actions);box.appendChild(row);
+      });
+    }
+    let turmaModalDisciplina='',origemModalDisciplina='admin';
+    function prepararModalNovaDisciplina(turma,origem){
+      if(!usuarioPodeGerenciarAlunos())return mostrarNotificacao('Acesso restrito','Somente administradores da unidade e o master podem adicionar disciplinas.','aviso');
+      if(!turma)return mostrarNotificacao('Selecione uma turma','Escolha uma turma antes de adicionar uma disciplina.','aviso');
+      disciplinaEmEdicao='';turmaModalDisciplina=String(turma);origemModalDisciplina=origem||'admin';
+      byId('titulo-modal-disciplina').textContent='Adicionar disciplina';byId('nome-nova-disciplina').value='';byId('btn-salvar-modal-disciplina').textContent='Salvar disciplina';
+      byId('modal-disciplina').classList.remove('hidden');byId('nome-nova-disciplina').focus();
+    }
+    function abrirModalAdicionarDisciplina(){prepararModalNovaDisciplina(byId('adm-turma-disciplinas')?.value,'admin');}
+    function abrirModalAdicionarDisciplinaTurma(){prepararModalNovaDisciplina(turmaSelecionada,'turma');}
+    function abrirModalEditarDisciplina(nome){
+      if(!usuarioPodeGerenciarAlunos())return mostrarNotificacao('Acesso restrito','Somente administradores da unidade e o master podem editar disciplinas.','aviso');
+      disciplinaEmEdicao=nome;turmaModalDisciplina=String(byId('adm-turma-disciplinas')?.value||'');origemModalDisciplina='admin';
+      byId('titulo-modal-disciplina').textContent='Editar disciplina';byId('nome-nova-disciplina').value=nome;byId('btn-salvar-modal-disciplina').textContent='Salvar alteração';byId('modal-disciplina').classList.remove('hidden');byId('nome-nova-disciplina').focus();
+    }
+    function salvarDisciplinaModal(){
+      const nome=byId('nome-nova-disciplina').value.trim(),turma=turmaModalDisciplina,btn=byId('btn-salvar-modal-disciplina');
+      if(!usuarioPodeGerenciarAlunos())return mostrarNotificacao('Acesso restrito','Somente administradores da unidade e o master podem gerenciar disciplinas.','aviso');
+      if(!turma)return mostrarNotificacao('Turma não identificada','Feche a janela e selecione a turma novamente.','aviso');
+      if(nome.length<2)return mostrarNotificacao('Nome inválido','Informe o nome da disciplina.','aviso');
+      btn.disabled=true;btn.textContent='Salvando…';const isEdit=!!disciplinaEmEdicao,action=isEdit?'editarDisciplina':'adicionarDisciplina';
+      const args=isEdit?[portalToken,escolaAtual.id,turma,disciplinaEmEdicao,nome]:[portalToken,escolaAtual.id,turma,nome];
+      callServer(action,args,r=>{
+        btn.disabled=false;btn.textContent=isEdit?'Salvar alteração':'Salvar disciplina';
+        if(!r.success)return mostrarNotificacao('Atenção',r.message,'aviso');
+        const origem=origemModalDisciplina;fecharModal('modal-disciplina');
+        if(origem==='admin'&&!byId('modal-adm').classList.contains('hidden')&&byId('adm-turma-disciplinas').value===turma)carregarDisciplinasAdministracao();
+        if(turma===turmaSelecionada)trocarTurmaOuBimestre();
+        mostrarNotificacao('Disciplinas atualizadas',r.message,'sucesso');
+      },false,()=>{btn.disabled=false;btn.textContent=disciplinaEmEdicao?'Salvar alteração':'Salvar disciplina';});
+    }
+    function removerDisciplinaAdministracao(nome){
+      const turma=byId('adm-turma-disciplinas').value;
+      abrirConfirmacao('Excluir disciplina','A disciplina '+nome+' será retirada da lista ativa. Notas e registros históricos anteriores serão preservados.',()=>{
+        callServer('excluirDisciplina',[portalToken,escolaAtual.id,turma,nome],r=>{if(!r.success)return mostrarNotificacao('Atenção',r.message,'aviso');carregarDisciplinasAdministracao();if(turma===turmaSelecionada)trocarTurmaOuBimestre();mostrarNotificacao('Disciplina excluída',r.message,'sucesso');},false);
+      });
+    }
+    function salvarDisciplinasLote(){
+      const turma=byId('adm-turma-disciplinas').value,texto=byId('lista-disciplinas-texto').value;if(!texto.trim())return mostrarNotificacao('Campo vazio','Informe ao menos uma disciplina.','aviso');
+      executarAcaoAdmin('btn-adm-salvar-disciplinas','Salvando…',done=>callServer('salvarDisciplinasEmLote',[portalToken,escolaAtual.id,turma,texto],r=>{done();mostrarNotificacao(r.success?'Disciplinas atualizadas':'Atenção',r.message,r.success?'sucesso':'aviso');if(r.success){byId('lista-disciplinas-texto').value='';carregarDisciplinasAdministracao();if(turma===turmaSelecionada)trocarTurmaOuBimestre();}},false,()=>done()));
+    }
+    function salvarConfigGerais(){
+      const locks=[1,2,3,4].map(i=>!byId('toggle-b'+i).checked);
+      executarAcaoAdmin('btn-adm-salvar-config','Salvando…',done=>callServer('atualizarConfiguracoesGerais',[portalToken,escolaAtual.id,byId('adm-bimestre-ativo').value,locks],r=>{done();mostrarNotificacao('Configurações salvas',r.message,'sucesso');invalidarCacheAdmin();flushPendingGradeSaves();bloqueiosAtuais=locks;byId('seletor-bimestre').value=byId('adm-bimestre-ativo').value;atualizarStatusBimestre(locks);if(turmaSelecionada)trocarTurmaOuBimestre();},false,()=>done()));
+    }
+    function addEmailsEmLote(categoria){
+      const id=categoria==='ADM'?'novo-email-adm':'novo-email-professor',text=byId(id).value;if(!text.trim())return mostrarNotificacao('Campo vazio','Cole ao menos um e-mail.','aviso');
+      const buttonId=categoria==='ADM'?'btn-adm-add-admin':'btn-adm-add-professor';
+      executarAcaoAdmin(buttonId,'Adicionando…',done=>callServer('adicionarEmailsEmLote',[portalToken,escolaAtual.id,text,categoria],r=>{done();if(!r.success)return mostrarNotificacao('Atenção',r.message,'aviso');byId(id).value='';mostrarNotificacao('Acessos atualizados',r.message,'sucesso');invalidarCacheAdmin();carregarDadosAdministrativos(true);},false,()=>done()));
+    }
+    function renderizarListaEmails(elementId,lista,categoria){
+      const ul=byId(elementId),selectAll=byId(categoria==='ADM'?'select-all-adms':'select-all-professores');ul.innerHTML='';if(selectAll)selectAll.checked=false;
+      if(!lista.length){ul.innerHTML='<li class="empty">Nenhum usuário cadastrado.</li>';return;}
+      lista.forEach(email=>{
+        const li=document.createElement('li'),check=document.createElement('input'),span=document.createElement('span'),actions=document.createElement('div'),remove=document.createElement('button');
+        check.type='checkbox';check.className='user-select user-select-'+categoria;check.value=email;check.setAttribute('aria-label','Selecionar '+email);
+        check.addEventListener('change',()=>atualizarEstadoSelecionarTodos(categoria));
+        span.textContent=email;span.style.flex='1';span.style.minWidth='0';span.style.overflow='hidden';span.style.textOverflow='ellipsis';
+        actions.className='user-actions';const reset=document.createElement('button');reset.type='button';reset.className='mini-btn';reset.textContent='Resetar PIN';reset.title='Exigir cadastro de um novo PIN no próximo acesso';reset.onclick=()=>resetarPinUsuarioUI(email,reset);remove.className='mini-btn danger';remove.textContent='Remover';remove.onclick=()=>removerEmail(email,categoria,remove);actions.append(reset,remove);li.append(check,span,actions);ul.appendChild(li);
+      });
+    }
+    function selecionarTodosUsuarios(categoria,checked){document.querySelectorAll('.user-select-'+categoria).forEach(cb=>cb.checked=!!checked);}
+    function atualizarEstadoSelecionarTodos(categoria){const all=Array.from(document.querySelectorAll('.user-select-'+categoria));const master=byId(categoria==='ADM'?'select-all-adms':'select-all-professores');if(master)master.checked=all.length>0&&all.every(cb=>cb.checked);}
+    function restaurarBotaoRemocao(btn,original){if(!btn)return;btn.disabled=false;btn.textContent=original;}
+    function resetarPinUsuarioUI(email,button){
+      if(usuarioLogado?.master!==true&&String(usuarioLogado?.perfil||'').toUpperCase()!=='ADM')return mostrarNotificacao('Acesso restrito','Somente administradores da unidade e master podem redefinir PINs.','aviso');
+      abrirConfirmacao('Redefinir PIN do usuário','O PIN de '+email+' será removido. No próximo acesso, a pessoa precisará cadastrar e confirmar um novo PIN de quatro dígitos. A sessão que já está aberta continuará até o usuário sair ou ela expirar; no próximo login, será obrigatório cadastrar um novo PIN. Deseja continuar?',()=>{
+        const original=button?.textContent||'Resetar PIN';if(button){button.disabled=true;button.textContent='Resetando…';}
+        callServer('resetarPinUsuario',[portalToken,escolaAtual.id,email],r=>{if(button){button.disabled=false;button.textContent=original;}invalidarCacheAdmin();mostrarNotificacao(r.success?'PIN redefinido':'Não foi possível redefinir',r.message,r.success?'sucesso':'aviso');},true,()=>{if(button){button.disabled=false;button.textContent=original;}});
+      });
+    }
+    function removerUsuariosSelecionados(categoria){
+      const emails=Array.from(document.querySelectorAll('.user-select-'+categoria+':checked')).map(cb=>cb.value);
+      if(!emails.length)return mostrarNotificacao('Nenhum usuário selecionado','Marque pelo menos um e-mail para remover.','aviso');
+      const button=byId(categoria==='ADM'?'btn-remover-selecionados-adms':'btn-remover-selecionados-professores');
+      const original=button?.textContent||'Remover selecionados';
+      abrirConfirmacao('Remover acessos selecionados','Serão removidos '+emails.length+' vínculo(s) de '+(categoria==='ADM'?'administradores':'professores')+' desta escola. Os históricos pedagógicos e os vínculos ativos com outras escolas serão preservados.',()=>{
+        const buttons=Array.from(document.querySelectorAll('.user-list-tools button'));buttons.forEach(b=>b.disabled=true);
+        // Retira imediatamente os itens selecionados da lista enquanto o servidor conclui a exclusão.
+        Array.from(document.querySelectorAll('.user-select-'+categoria+':checked')).forEach(cb=>cb.closest('li')?.remove());
+        if(button){button.textContent='Removendo…';button.disabled=true;}
+        callServer('removerUsuariosEmLote',[portalToken,escolaAtual.id,emails,categoria],r=>{
+          buttons.forEach(b=>b.disabled=false);restaurarBotaoRemocao(button,original);
+          invalidarCacheAdmin();carregarDadosAdministrativos(true);
+          mostrarNotificacao(r.success?'Acessos atualizados':'Atenção',r.message,r.success?'sucesso':'aviso');
+        },true,()=>{buttons.forEach(b=>b.disabled=false);restaurarBotaoRemocao(button,original);invalidarCacheAdmin();carregarDadosAdministrativos(true);});
+      });
+    }
+    function removerEmail(email,categoria,button){
+      const original=button?.textContent||'Remover';
+      abrirConfirmacao('Remover acesso','Remover o acesso de '+email+' desta escola? O vínculo desta unidade será excluído. Outros vínculos ativos do mesmo e-mail em outras escolas serão mantidos.',()=>{
+        const item=button?.closest('li');if(item)item.remove();
+        if(button){button.disabled=true;button.textContent='Removendo…';}
+        callServer('removerEmailUsuario',[portalToken,escolaAtual.id,email,categoria],r=>{
+          restaurarBotaoRemocao(button,original);invalidarCacheAdmin();carregarDadosAdministrativos(true);
+          mostrarNotificacao(r.success?'Acesso removido':'Atenção',r.message,r.success?'sucesso':'aviso');
+        },true,()=>{restaurarBotaoRemocao(button,original);invalidarCacheAdmin();carregarDadosAdministrativos(true);});
+      });
+    }
+    function abrirPainelMaster(){
+      if(usuarioLogado?.master!==true)return mostrarNotificacao('Acesso restrito','Somente o proprietário autenticado pode abrir o Painel Master.','aviso');
+      byId('modal-master').classList.remove('hidden');carregarPainelMaster();
+    }
+    function carregarPainelMaster(){
+      if(masterLoading)return;masterLoading=true;byId('master-loading').classList.remove('hidden');
+      callServer('obterPainelMaster',[portalToken],data=>{
+        masterLoading=false;byId('master-loading').classList.add('hidden');const c=data.config||{};
+        byId('master-app-name').value=c.APP_NAME||'';byId('master-login-title').value=c.LOGIN_TITLE||'';byId('master-login-description').value=c.LOGIN_DESCRIPTION||'';byId('master-footer-text').value=c.FOOTER_TEXT||'';byId('master-logo-url').value=c.LOGO_URL||'';byId('master-default-year').value=c.DEFAULT_YEAR||new Date().getFullYear();
+        renderizarListaEscolasMaster(data.schools||[]);carregarDiagnosticoEstruturalMaster();atualizarCamposLimpezaMaster();
+      },true,()=>{masterLoading=false;byId('master-loading').classList.add('hidden');});
+    }
+    function renderizarListaEscolasMaster(list){
+      const target=byId('master-lista-escolas'),select=byId('master-escola-config-select'),previous=select.value;target.innerHTML=list.length?list.map(s=>`<div class="master-school-row"><span><b>${esc(s.name)}</b><br><span class="tiny">${esc(s.id)} · ${esc(s.year)}</span></span><span class="tiny">${esc(s.status)}</span></div>`).join(''):'<p class="tiny">Nenhuma escola cadastrada.</p>';
+      select.innerHTML=list.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.status)}</option>`).join('');if(list.some(s=>s.id===previous))select.value=previous;if(list.length)carregarConfiguracaoEscolaMaster(select.value);
+      const box=byId('master-limpeza-escolas');if(box)box.innerHTML=list.map(s=>`<label class="check-item"><span>${esc(s.name)}<small style="display:block;color:#64748b">${esc(s.id)} · ${esc(s.status)}</small></span><input type="checkbox" class="master-limpeza-escola" value="${esc(s.id)}"></label>`).join('');
+    }
+    function carregarDiagnosticoEstruturalMaster(){
+      callServer('obterDiagnosticoEstruturalMaster',[portalToken],d=>{
+        const sum=byId('master-estrutura-resumo'),detail=byId('master-estrutura-detalhes');
+        sum.textContent='Cadastros duplicados por e-mail: '+d.duplicateUsers.groups+' grupo(s), '+d.duplicateUsers.extraRows+' linha(s) excedente(s). Registros sem e-mail: '+d.blankUsers+'. Migração legada confirmada: '+(d.migrationConfirmed?'sim':'não')+'.';
+        const legacy=(d.legacy||[]).map(x=>x.aba+' ('+x.registros+' registro(s))').join(' · ')||'Nenhuma aba legada candidata encontrada.';
+        const hist=d.historySheet?' · '+d.historySheet.aba+' possui '+d.historySheet.registros+' registro(s) e será preservada.':'';const empty=d.emptySheet&&d.emptySheet.empty?' · Página1 está vazia e pode ser arquivada.':'';
+        const examples=(d.duplicateUsers.examples||[]).map(x=>x.email+' ('+x.registros+')').join(', ');
+        detail.textContent='Abas candidatas a arquivamento: '+legacy+hist+empty+(examples?' · Exemplos de duplicidade: '+examples:'');
+      },true);
+    }
+    function atualizarCamposLimpezaMaster(){
+      // Os bimestres ficam sempre no início do fluxo; só serão usados quando "Notas de bimestre(s)" estiver marcada.
+      byId('master-limpeza-bimestre-wrap')?.classList.remove('hidden');
+      atualizarSelecaoBimestresLimpezaMaster();
+    }
+    function atualizarSelecaoBimestresLimpezaMaster(){
+      const boxes=Array.from(document.querySelectorAll('.master-limpeza-bimestre'));
+      const selecionados=boxes.filter(x=>x.checked);
+      const all=byId('master-limpeza-bimestres-todos');
+      if(all){all.checked=boxes.length>0&&selecionados.length===boxes.length;all.indeterminate=selecionados.length>0&&selecionados.length<boxes.length;}
+    }
+    function selecionarTodosBimestresLimpezaMaster(checked){
+      document.querySelectorAll('.master-limpeza-bimestre').forEach(x=>x.checked=!!checked);
+      atualizarSelecaoBimestresLimpezaMaster();
+    }
+    function executarLimpezaMaster(){
+      if(usuarioLogado?.master!==true)return mostrarNotificacao('Acesso restrito','Somente o master pode limpar dados.','aviso');
+      const schools=Array.from(document.querySelectorAll('.master-limpeza-escola:checked')).map(x=>x.value);
+      const tipos=Array.from(document.querySelectorAll('.master-limpeza-tipo:checked')).map(x=>x.value);
+      const bimestres=Array.from(document.querySelectorAll('.master-limpeza-bimestre:checked')).map(x=>x.value);
+      const word=byId('master-limpeza-confirmacao').value.trim();
+      if(!schools.length)return mostrarNotificacao('Selecione escolas','Marque pelo menos uma unidade escolar.','aviso');
+      if(!tipos.length)return mostrarNotificacao('Selecione o que limpar','Marque pelo menos uma categoria de dados.','aviso');
+      if(tipos.includes('NOTAS_BIMESTRE')&&!bimestres.length)return mostrarNotificacao('Selecione os bimestres','Marque primeiro um ou mais bimestres na seção acima ou escolha Todos os bimestres.','aviso');
+      if(word!=='ZERAR DADOS')return mostrarNotificacao('Confirmação incorreta','Digite exatamente ZERAR DADOS.','aviso');
+      const todosBimestres=bimestres.length===4;
+      const labels={NOTAS_BIMESTRE:todosBimestres?'notas de todos os bimestres':'notas dos bimestres '+bimestres.join(', '),OBSERVACOES:'todas as observações pedagógicas',DISCIPLINAS:'todas as disciplinas',ALUNOS:'alunos e todo o histórico associado',ADMINISTRADORES:'vínculos de administradores',PROFESSORES:'vínculos de professores',USUARIOS:'todos os vínculos de usuários'};
+      const descricao=tipos.map(t=>labels[t]).join('; ');
+      abrirConfirmacao('Confirmar limpeza de dados','A ação apagará: '+descricao+'. Escolas selecionadas: '+schools.length+'. Essa operação não poderá ser desfeita pelo portal. Deseja continuar?',()=>{
+        const btn=byId('btn-master-executar-limpeza');btn.disabled=true;btn.textContent='Limpando dados…';
+        callServer('limparDadosEscolasMaster',[portalToken,schools,tipos,bimestres,word],r=>{
+          btn.disabled=false;btn.textContent='Executar limpeza selecionada';
+          if(!r.success)return mostrarNotificacao('Limpeza não executada',r.message,'aviso');
+          byId('master-limpeza-confirmacao').value='';
+          document.querySelectorAll('.master-limpeza-tipo,.master-limpeza-bimestre').forEach(x=>x.checked=false);
+          const all=byId('master-limpeza-bimestres-todos');if(all){all.checked=false;all.indeterminate=false;}
+          atualizarCamposLimpezaMaster();
+          byId('master-limpeza-resultado').textContent=r.message;carregarDiagnosticoEstruturalMaster();mostrarNotificacao('Limpeza concluída',r.message,'sucesso');
+        },true,()=>{btn.disabled=false;btn.textContent='Executar limpeza selecionada';});
+      });
+    }
+    function consolidarUsuariosMaster(){
+      const word=byId('master-consolidar-confirmacao').value.trim();if(word!=='CONSOLIDAR USUÁRIOS')return mostrarNotificacao('Confirmação incorreta','Digite exatamente CONSOLIDAR USUÁRIOS.','aviso');
+      abrirConfirmacao('Consolidar cadastros duplicados','Os registros com o mesmo e-mail serão unificados em um único usuário. Os vínculos por escola/perfil serão combinados. As sessões dos usuários afetados precisarão ser refeitas.',()=>{
+        const btn=byId('btn-master-consolidar-usuarios');btn.disabled=true;btn.textContent='Consolidando…';
+        callServer('consolidarUsuariosDuplicadosMaster',[portalToken,word],r=>{btn.disabled=false;btn.textContent='Consolidar usuários duplicados';if(!r.success)return mostrarNotificacao('Não foi possível consolidar',r.message,'aviso');byId('master-consolidar-confirmacao').value='';carregarDiagnosticoEstruturalMaster();mostrarNotificacao('Consolidação concluída',r.message,'sucesso');},true,()=>{btn.disabled=false;btn.textContent='Consolidar usuários duplicados';});
+      });
+    }
+    function arquivarAbasLegadas(){
+      const word=byId('master-arquivar-confirmacao').value.trim();if(word!=='ARQUIVAR ABAS ANTIGAS')return mostrarNotificacao('Confirmação incorreta','Digite exatamente ARQUIVAR ABAS ANTIGAS.','aviso');
+      abrirConfirmacao('Arquivar abas antigas','As abas legadas com migração confirmada serão renomeadas e ocultadas, mas permanecerão na planilha como cópia de segurança. _HISTORICO_NOTAS não será alterada.',()=>{
+        const btn=byId('btn-master-arquivar-legadas');btn.disabled=true;btn.textContent='Arquivando…';
+        callServer('arquivarAbasLegadasMaster',[portalToken,word],r=>{btn.disabled=false;btn.textContent='Arquivar abas antigas migradas';if(!r.success)return mostrarNotificacao('Arquivamento não realizado',r.message,'aviso');byId('master-arquivar-confirmacao').value='';carregarDiagnosticoEstruturalMaster();mostrarNotificacao('Abas arquivadas',r.message,'sucesso');},true,()=>{btn.disabled=false;btn.textContent='Arquivar abas antigas migradas';});
+      });
+    }
+    function carregarConfiguracaoEscolaMaster(schoolId){if(!schoolId)return;const btn=byId('btn-master-salvar-escola-config');btn.disabled=true;callServer('obterConfiguracaoEscolaMaster',[portalToken,schoolId],r=>{btn.disabled=false;if(!r.success)return mostrarNotificacao('Unidade não carregada',r.message,'aviso');byId('master-escola-config-nome').value=r.school.name;byId('master-escola-config-ano').value=r.school.year;byId('master-escola-config-bimestre').value=r.config.bimestreAtivo;(r.config.bloqueios||[false,false,false,false]).forEach((locked,i)=>byId('master-escola-b'+(i+1)).checked=!locked);},true,()=>btn.disabled=false);}
+    function salvarConfiguracaoEscolaMaster(){const id=byId('master-escola-config-select').value;if(!id)return;const btn=byId('btn-master-salvar-escola-config');if(btn.disabled)return;btn.disabled=true;btn.textContent='Salvando…';const payload={name:byId('master-escola-config-nome').value,year:byId('master-escola-config-ano').value,bimestreAtivo:byId('master-escola-config-bimestre').value,bloqueios:[1,2,3,4].map(i=>!byId('master-escola-b'+i).checked)};callServer('salvarConfiguracaoEscolaMaster',[portalToken,id,payload],r=>{btn.disabled=false;btn.textContent='Salvar parâmetros da unidade';if(!r.success)return mostrarNotificacao('Não foi possível salvar',r.message,'aviso');mostrarNotificacao('Parâmetros atualizados',r.message,'sucesso');carregarPainelMaster();},true,()=>{btn.disabled=false;btn.textContent='Salvar parâmetros da unidade';});}
+
+    function salvarPainelMaster(){
+      if(usuarioLogado?.master!==true)return mostrarNotificacao('Acesso restrito','Operação exclusiva do proprietário.','aviso');
+      const btn=byId('btn-salvar-master-config');btn.disabled=true;btn.textContent='Salvando…';
+      const payload={APP_NAME:byId('master-app-name').value,LOGIN_TITLE:byId('master-login-title').value,LOGIN_DESCRIPTION:byId('master-login-description').value,FOOTER_TEXT:byId('master-footer-text').value,LOGO_URL:byId('master-logo-url').value,DEFAULT_YEAR:byId('master-default-year').value};
+      callServer('salvarConfiguracoesMaster',[portalToken,payload],r=>{
+        btn.disabled=false;btn.textContent='Salvar configurações globais';if(!r.success)return mostrarNotificacao('Configuração não salva',r.message,'aviso');
+        aplicarMarca(aplicarMarcaDoCadastro(r.config||{}));mostrarNotificacao('Painel Master atualizado',r.message,'sucesso');
+      },true,()=>{btn.disabled=false;btn.textContent='Salvar configurações globais';});
+    }
+    function criarEscolaMaster(){
+      if(usuarioLogado?.master!==true)return mostrarNotificacao('Acesso restrito','Operação exclusiva do proprietário.','aviso');
+      const name=byId('master-nova-escola').value.trim();if(!name)return mostrarNotificacao('Nome necessário','Informe o nome da nova unidade.','aviso');
+      const btn=byId('btn-master-criar-escola');btn.disabled=true;btn.textContent='Cadastrando…';
+      callServer('criarEscola',[portalToken,name],r=>{
+        btn.disabled=false;btn.textContent='＋ Cadastrar escola';if(!r.success)return mostrarNotificacao('Atenção',r.message,'aviso');
+        byId('master-nova-escola').value='';mostrarNotificacao('Escola cadastrada',r.message,'sucesso');carregarPainelMaster();
+        callServer('obterDadosPortal',[portalToken,escolaAtual.id],d=>{escolasDisponiveis=d.schools;const sel=byId('seletor-escola');if(escolasDisponiveis.length>1){sel.classList.remove('hidden');sel.innerHTML=escolasDisponiveis.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');sel.value=escolaAtual.id;}},true);
+      },true,()=>{btn.disabled=false;btn.textContent='＋ Cadastrar escola';});
+    }
+
+
+    function mostrarNotificacao(titulo,mensagem,tipo){byId('titulo-notificacao').textContent=titulo;byId('msg-notificacao').textContent=mensagem;byId('icon-notificacao').textContent=tipo==='sucesso'?'✓':'!';byId('modal-notificacao').classList.remove('hidden');}
+    function fecharNotificacao(){byId('modal-notificacao').classList.add('hidden');}
+    function abrirConfirmacao(titulo,texto,callback){byId('titulo-confirmacao').textContent=titulo||'Confirmar ação';byId('texto-confirmacao').textContent=texto||'Deseja continuar?';confirmacaoPendente=typeof callback==='function'?callback:null;byId('modal-confirmacao').classList.remove('hidden');}
+    function cancelarConfirmacao(){confirmacaoPendente=null;fecharModal('modal-confirmacao');}
+    function executarConfirmacao(){const fn=confirmacaoPendente;confirmacaoPendente=null;fecharModal('modal-confirmacao');if(fn)fn();}
+    function fecharModal(id){byId(id)?.classList.add('hidden');}
+    window.addEventListener('resize',()=>{if(graficoAtual&& !byId('modal-reuniao-pais').classList.contains('hidden'))renderizarGraficoHistorico(graficoAtual);if(!byId('modal-graficos').classList.contains('hidden'))renderizarConteudoProficiencia();});
+  </script>
+</body>
+</html>
