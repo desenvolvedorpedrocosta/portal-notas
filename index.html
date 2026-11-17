@@ -136,7 +136,7 @@
       </div>
       <div id="container-botoes-turmas" class="class-strip no-print"></div>
       <div class="panel table-panel">
-        <div class="table-head"><h3 id="nome-turma-selecionada">Selecione uma turma</h3><div class="table-tools no-print"><button class="btn btn-primary" onclick="abrirModalGraficos()">▥ Análise da turma</button><div style="position:relative"><button class="btn btn-soft" onclick="toggleFiltroDisciplinas(event)">Filtrar disciplinas ▾</button><div id="dropdown-disciplinas" class="panel hidden" style="position:absolute;right:0;top:42px;width:240px;z-index:25;padding:12px;max-height:280px;overflow:auto"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><button class="text-button" onclick="marcarTodasDisciplinas(true)">Todas</button><button class="text-button" onclick="marcarTodasDisciplinas(false)">Nenhuma</button></div><div id="lista-checkbox-disciplinas"></div></div></div><input id="busca-aluno" type="search" placeholder="Buscar aluno…" oninput="filtrarAlunos()"><div class="table-export-actions"><button class="btn btn-soft" onclick="exportarNotasPDF()">⇩ PDF</button><button class="btn btn-soft" onclick="exportarNotasExcel()">⇩ Excel</button></div><button class="btn btn-soft" onclick="abrirModalAddAluno()">＋ Alunos</button><button id="btn-add-disciplina-turma" class="btn btn-soft hidden" type="button" onclick="abrirModalAdicionarDisciplinaTurma()">＋ Disciplina</button></div></div>
+        <div class="table-head"><h3 id="nome-turma-selecionada">Selecione uma turma</h3><div class="table-tools no-print"><button class="btn btn-primary" onclick="abrirModalGraficos()">▥ Análise da turma</button><div style="position:relative"><button class="btn btn-soft" onclick="toggleFiltroDisciplinas(event)">Filtrar disciplinas ▾</button><div id="dropdown-disciplinas" class="panel hidden" style="position:absolute;right:0;top:42px;width:240px;z-index:25;padding:12px;max-height:280px;overflow:auto"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><button class="text-button" onclick="marcarTodasDisciplinas(true)">Todas</button><button class="text-button" onclick="marcarTodasDisciplinas(false)">Nenhuma</button></div><div id="lista-checkbox-disciplinas"></div></div></div><input id="busca-aluno" type="search" placeholder="Buscar aluno…" oninput="filtrarAlunos()"><div class="table-export-actions"><button class="btn btn-soft" onclick="exportarNotasPDF()">⇩ PDF</button><button class="btn btn-soft" onclick="exportarNotasExcel()">⇩ Excel</button></div><button class="btn btn-soft" onclick="abrirModalAddAluno()">＋ Alunos</button><button id="btn-excluir-alunos-turma" class="btn btn-red hidden" type="button" onclick="abrirConfirmacaoExclusaoAlunosTurma()" title="Excluir permanentemente todos os alunos e seus históricos desta turma">⌫ Excluir alunos da turma</button><button id="btn-add-disciplina-turma" class="btn btn-soft hidden" type="button" onclick="abrirModalAdicionarDisciplinaTurma()">＋ Disciplina</button></div></div>
         <div id="loading-tabela" class="hidden" style="padding:10px 15px"><div class="loading-bar"></div></div>
         <div class="table-scroll"><table class="grade-table"><thead id="header-tabela"><tr><th>Nome do estudante</th></tr></thead><tbody id="body-tabela"><tr><td class="empty">Selecione uma turma para carregar os dados.</td></tr></tbody></table></div>
       </div>
@@ -225,7 +225,7 @@
     let syncTimer = null, syncInFlight = false, syncRefreshInFlight = false, syncVersionAtual = 1;
     let turmaSelecionada = '', dadosTurmaCache = null, disciplinasVisiveis = [], obsAtualContexto = null;
     let modoProficienciaAtual = 'grupos', notasPendentes = new Map(), timerLoteNotas = null, graficoAtual = null, bloqueiosAtuais = [false,false,false,false];
-    let undoStack = [], alunoEdicaoAtual = null, alunoExclusaoAtual = null, desfazendoLocal = false, gradeSavesInFlight = 0;
+    let undoStack = [], alunoEdicaoAtual = null, alunoExclusaoAtual = null, desfazendoLocal = false, gradeSavesInFlight = 0, excluindoAlunosTurma = false;
     let emailMasterPendente = '', emailUsuarioPendente = '', modoPinUsuario = 'LOGIN', confirmacaoPendente = null, adminLoading = false, masterLoading = false, marcaAtual = null, manterAcessoAtual = true;
     let indicadoresTurmaCache = null, indicadoresTurmaCacheKey = '', indicadoresRequestSeq = 0;
     const bimesterList = ['1º BIMESTRE','2º BIMESTRE','3º BIMESTRE','4º BIMESTRE'];
@@ -477,7 +477,8 @@
 
     function renderizarTurmas(turmas){
       const c=byId('container-botoes-turmas');c.innerHTML='';
-      turmas.forEach(t=>{const b=document.createElement('button');b.className='class-btn'+(turmaSelecionada===t?' active':'');b.textContent=t;b.onclick=()=>{flushPendingGradeSaves();turmaSelecionada=t;document.querySelectorAll('.class-btn').forEach(x=>x.classList.toggle('active',x===b));trocarTurmaOuBimestre();};c.appendChild(b);});
+      turmas.forEach(t=>{const b=document.createElement('button');b.className='class-btn'+(turmaSelecionada===t?' active':'');b.textContent=t;b.onclick=()=>{flushPendingGradeSaves();turmaSelecionada=t;const bulkDelete=byId('btn-excluir-alunos-turma');if(bulkDelete)bulkDelete.disabled=false;document.querySelectorAll('.class-btn').forEach(x=>x.classList.toggle('active',x===b));trocarTurmaOuBimestre();};c.appendChild(b);});
+      const bulkDelete=byId('btn-excluir-alunos-turma');if(bulkDelete){bulkDelete.classList.toggle('hidden',!usuarioPodeGerenciarAlunos());bulkDelete.disabled=!turmaSelecionada;}
       byId('adm-turma-disciplinas').innerHTML=turmas.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join('');byId('adm-turma-disciplinas').onchange=carregarDisciplinasAdministracao;
     }
     function aoTrocarBimestre(){flushPendingGradeSaves();atualizarStatusBimestre(bloqueiosAtuais);trocarTurmaOuBimestre();}
@@ -733,6 +734,48 @@
     function confirmarExclusaoAluno(){
       if(!usuarioPodeGerenciarAlunos()||!alunoExclusaoAtual)return;
       const id=alunoExclusaoAtual;callServer('excluirAluno',[portalToken,escolaAtual.id,id],r=>{if(!r.success)return mostrarNotificacao('Não foi possível excluir',r.message,'aviso');fecharModal('modal-confirmar-exclusao-aluno');alunoExclusaoAtual=null;undoStack=undoStack.filter(tx=>!tx.changes.some(ch=>ch.studentId===id));mostrarNotificacao('Turma atualizada',r.message,'sucesso');trocarTurmaOuBimestre();});
+    }
+
+    function abrirConfirmacaoExclusaoAlunosTurma(){
+      if(!usuarioPodeGerenciarAlunos())return mostrarNotificacao('Acesso restrito','Somente administradores da unidade e o master podem excluir todos os alunos de uma turma.','aviso');
+      if(!escolaAtual?.id||!turmaSelecionada)return mostrarNotificacao('Selecione uma turma','Escolha a turma antes de solicitar a exclusão em massa.','aviso');
+      if(excluindoAlunosTurma)return;
+      // Envia primeiro qualquer nota que esteja aguardando salvamento.
+      flushPendingGradeSaves();
+      const schoolId=String(escolaAtual.id),turma=String(turmaSelecionada);
+      const ativos=Number(dadosTurmaCache?.alunos?.length||0);
+      const quantidade=ativos?(' Há atualmente '+ativos+' estudante(s) ativo(s) exibido(s) na tela.'):'';
+      const texto='ATENÇÃO: todos os registros de estudantes vinculados à turma '+turma+' da unidade '+String(escolaAtual.name||'selecionada')+' serão excluídos permanentemente.'+quantidade+' Também serão removidos todos os registros associados de notas, observações pedagógicas e intervenções, de todos os bimestres. Esta exclusão é irreversível e não poderá ser desfeita pelo portal. Deseja realmente continuar?';
+      abrirConfirmacao('Excluir permanentemente todos os alunos da turma '+turma,texto,()=>executarExclusaoAlunosTurma(schoolId,turma));
+    }
+
+    function executarExclusaoAlunosTurma(schoolId,turma){
+      if(!usuarioPodeGerenciarAlunos()||!portalToken||String(escolaAtual?.id||'')!==String(schoolId))return mostrarNotificacao('Acesso não autorizado','A escola ou a permissão mudou. Atualize a tela e tente novamente.','aviso');
+      if(excluindoAlunosTurma)return;
+      if(notasPendentes.size||gradeSavesInFlight>0){
+        flushPendingGradeSaves();
+        return mostrarNotificacao('Salvamento em andamento','Há notas ainda sendo enviadas ao servidor. Aguarde a confirmação dos salvamentos e solicite novamente a exclusão da turma. Nenhum aluno foi excluído.','aviso');
+      }
+      const btn=byId('btn-excluir-alunos-turma');
+      excluindoAlunosTurma=true;
+      if(btn){btn.disabled=true;btn.textContent='Excluindo alunos…';}
+      const finalizar=()=>{excluindoAlunosTurma=false;if(btn){btn.disabled=!turmaSelecionada;btn.textContent='⌫ Excluir alunos da turma';}};
+      callServer('excluirAlunosDaTurma',[portalToken,schoolId,turma],r=>{
+        finalizar();
+        if(!r||!r.success)return mostrarNotificacao('Exclusão não realizada',r?.message||'O servidor não confirmou a exclusão.','aviso');
+        undoStack=undoStack.filter(tx=>!(String(tx.schoolId)===String(schoolId)&&String(tx.turma)===String(turma)));
+        if(String(escolaAtual?.id||'')===String(schoolId)&&String(turmaSelecionada)===String(turma)){
+          const idsRemovidos=new Set((dadosTurmaCache?.alunos||[]).map(a=>String(a.id)));
+          const seletorFicha=byId('seletor-aluno-reuniao');
+          if(seletorFicha&&idsRemovidos.has(String(seletorFicha.value||''))){seletorFicha.value='';byId('conteudo-ficha-aluno')?.classList.add('hidden');fecharModal('modal-reuniao-pais');}
+          if(dadosTurmaCache)dadosTurmaCache.alunos=[];
+          if(byId('busca-aluno'))byId('busca-aluno').value='';
+          indicadoresTurmaCacheKey='';
+          renderizarTabelaNotas(dadosTurmaCache);filtrarAlunos();
+          trocarTurmaOuBimestre();
+        }
+        mostrarNotificacao('Exclusão em massa concluída',r.message,'sucesso');
+      },false,()=>finalizar());
     }
 
     function abrirModalGraficos(){if(!dadosTurmaCache?.alunos)return mostrarNotificacao('Selecione uma turma','Escolha uma turma para analisar os resultados.','aviso');byId('modal-graficos').classList.remove('hidden');renderizarConteudoProficiencia();carregarIndicadoresPedagogicos(true);}
