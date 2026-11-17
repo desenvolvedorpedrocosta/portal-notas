@@ -98,7 +98,145 @@
     #master-limpeza-bimestre-wrap .master-clean-all-bimesters{grid-column:1/-1;background:#eef5ff;border-color:#c8dcfb}
     #master-limpeza-bimestre-wrap .master-clean-all-bimesters small{display:block;margin-top:3px;font-size:11px;font-weight:500;color:#53677f}
     @media(max-width:640px){#master-limpeza-tipos.master-clean-options,#master-limpeza-bimestre-wrap .master-clean-bimesters{grid-template-columns:minmax(0,1fr)}}
-</style>
+
+    /* V15 — ajustes exclusivamente responsivos para smartphones.
+       As regras abaixo só atuam até 640px e não alteram o layout de desktop. */
+    @media screen and (max-width:640px){
+      html,body{width:100%;max-width:100%;overflow-x:clip}
+      body{min-width:0}
+      #app-header,#app-main,#app-footer,header,main,footer,.header-inner,
+      #area-balizadora,.panel,.toolbar,.table-panel,.table-head,.table-tools,
+      .modal,.modal-body,.section-card,.pedagogical-indicators,.indicator-grid,
+      .indicator-card,.chart-box,.login-card,.notice-card{min-width:0;max-width:100%}
+      #app-main,main{width:100%;padding:14px 9px 24px}
+
+      .header-inner{width:100%;padding:10px 12px;gap:10px;align-items:stretch;flex-direction:column}
+      .brand{width:100%;max-width:100%;min-width:0;gap:9px}
+      .brand h1{font-size:14px;line-height:1.3;overflow-wrap:anywhere}
+      .brand p{max-width:calc(100vw - 88px);white-space:normal;overflow-wrap:anywhere;line-height:1.35}
+      .logo-header{height:70px;max-height:70px;max-width:min(44vw,220px);width:auto;object-fit:contain}
+      .user-area{width:100%;max-width:100%;min-width:0;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:7px}
+      .user-area>*{min-width:0;max-width:100%}
+      .user-pill{max-width:calc(100vw - 34px);white-space:normal;overflow-wrap:anywhere}
+      .school-select{max-width:100%;min-width:0}
+      .online-users{max-width:100%;flex-wrap:wrap}
+      .online-count{white-space:normal}
+
+      .page-title{margin:12px auto 18px;padding:0 4px}
+      .page-title h2{font-size:21px;line-height:1.25;overflow-wrap:anywhere}
+      .page-title p{font-size:13px;overflow-wrap:anywhere}
+      .module-grid{width:100%;grid-template-columns:minmax(0,1fr);gap:12px}
+      .module-card{padding:18px}
+
+      .toolbar{width:100%;padding:11px;gap:10px;align-items:stretch}
+      .toolbar-group{width:100%;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      .toolbar-group>*{min-width:0;max-width:100%;width:100%;flex:initial}
+      .toolbar-group>label{grid-column:1/-1;align-self:end}
+      .toolbar-group .btn,.toolbar-group select{min-height:42px;white-space:normal}
+      .status-pill{display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;white-space:normal}
+
+      .class-strip{width:100%;max-width:100%;padding:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:thin;touch-action:pan-x}
+      .class-btn{flex:0 0 auto;min-height:38px}
+      .table-head{width:100%;padding:11px;align-items:stretch;flex-direction:column;gap:10px}
+      .table-head h3{font-size:15px;line-height:1.3;overflow-wrap:anywhere}
+      .table-tools{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+      .table-tools>*{min-width:0;max-width:100%;width:100%}
+      .table-tools>div{position:relative}
+      .table-tools .btn{width:100%;min-height:42px;padding:9px 7px;font-size:11px;line-height:1.25;white-space:normal}
+      .table-tools input{width:100%;min-width:0;max-width:100%;min-height:42px;font-size:13px}
+      #busca-aluno{grid-column:1/-1}
+      #dropdown-disciplinas{width:min(240px,calc(100vw - 38px))!important;max-width:calc(100vw - 38px);right:0;left:auto}
+      .table-export-actions{grid-column:1/-1;width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+      #btn-excluir-alunos-turma{grid-column:1/-1}
+      #btn-add-disciplina-turma{grid-column:1/-1}
+
+      /* A grade de notas continua sendo uma tabela; somente ela rola lateralmente. */
+      .table-scroll{display:block;width:100%;max-width:100%;overflow-x:auto;overflow-y:auto;max-height:62vh;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;scrollbar-width:thin;scrollbar-color:#94a3b8 #eaf0f7;border-bottom:1px solid #dbe4ef}
+      .grade-table{width:max-content;min-width:100%;table-layout:auto}
+      .grade-table th,.grade-table td{padding:8px 7px}
+      .grade-table th:first-child,.grade-table td:first-child{min-width:190px;max-width:220px;white-space:normal;overflow-wrap:anywhere}
+      .grade-table td:first-child .student-name-wrap{min-width:0;max-width:205px;width:100%}
+      .grade-input{min-width:48px;width:50px;min-height:38px;padding:7px 2px}
+      .obs-btn{width:36px;height:36px;min-width:36px}
+
+      .two-col,.check-grid{grid-template-columns:minmax(0,1fr)}
+      .section-card{padding:12px}
+      .discipline-admin-list{grid-template-columns:minmax(0,1fr)}
+      .discipline-admin-row{min-width:0;flex-wrap:wrap}
+      .discipline-admin-row span{min-width:0;overflow-wrap:anywhere}
+      .discipline-admin-row div{max-width:100%;flex-wrap:wrap}
+      .student-name-wrap{min-width:0;max-width:100%}
+      .student-admin-actions{max-width:100%;flex-wrap:wrap}
+      .student-admin-actions .mini-btn,.mini-btn{min-height:34px;font-size:11px;padding:7px 8px}
+      .user-list li{align-items:flex-start;flex-wrap:wrap;overflow-wrap:anywhere}
+      .user-actions{max-width:100%;flex-wrap:wrap}
+      .master-school-row{min-width:0;flex-wrap:wrap;overflow-wrap:anywhere}
+      .stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+      .stat{min-width:0;padding:11px 6px}
+      .stat b{font-size:19px}
+      .history-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .history-item{min-width:0;overflow-wrap:anywhere}
+      .indicator-grid{grid-template-columns:minmax(0,1fr)}
+      .indicator-card,.chart-box{width:100%;padding:11px}
+      .pedagogical-indicators{padding:11px}
+      .pedagogical-indicators-head{align-items:flex-start}
+      .indicator-table-wrap{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:thin}
+      .indicator-table{width:max-content;min-width:100%}
+      .indicator-teachers{min-width:155px}
+      .indicator-coverage{min-width:95px}
+      .indicator-list-item{min-width:0;flex-wrap:wrap;overflow-wrap:anywhere}
+      .indicator-list-item strong{white-space:normal}
+      #grafico-evolucao-turma{width:100%;max-width:100%;height:170px}
+      canvas,svg,img,video{max-width:100%}
+
+      .login-screen{width:100%;max-width:100%;padding:12px;overflow-y:auto;place-items:center}
+      .login-card{width:100%;max-width:500px;padding:clamp(18px,5vw,28px);border-radius:17px}
+      .logo-login{max-width:100%;height:clamp(76px,24vw,100px);width:auto;object-fit:contain}
+      .field input,.field select,.field textarea,.control{min-width:0;max-width:100%;min-height:42px;font-size:16px}
+      .remember{align-items:flex-start;line-height:1.4}
+      .btn{min-height:42px;padding:10px 11px;font-size:12px;white-space:normal;line-height:1.25}
+      .text-button{min-height:36px}
+
+      .modal-backdrop{width:100%;max-width:100%;padding:8px;overflow-x:hidden;overflow-y:auto;align-items:center;justify-content:center}
+      .modal,.modal.wide,.modal.small{width:100%;max-width:100%;max-height:calc(100vh - 16px);max-height:calc(100dvh - 16px);border-radius:14px}
+      .modal-head{min-width:0;padding:12px 13px;align-items:flex-start}
+      .modal-head h3{min-width:0;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+      .modal-body{width:100%;min-width:0;padding:13px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+      .modal-body>*{min-width:0;max-width:100%}
+      .modal-body [style*="overflow:auto"]{width:100%;max-width:100%;overflow-x:auto!important;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:thin}
+      .modal-body .data-table{width:max-content;min-width:100%}
+      .modal-foot{padding:11px 13px;gap:7px;flex-wrap:wrap}
+      .modal-foot>.btn{flex:1 1 120px;min-width:0;min-height:42px}
+      .notice{width:100%;max-width:100%;padding:10px}
+      .notice-card{width:100%;max-width:410px;padding:18px}
+      .tooltip-float{max-width:calc(100vw - 24px);min-width:0;overflow-wrap:anywhere}
+      .footer{width:100%;padding:14px 10px;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+    }
+
+    @media screen and (max-width:420px){
+      #app-main,main{padding-left:7px;padding-right:7px}
+      .header-inner{padding-left:9px;padding-right:9px}
+      .brand h1{font-size:13px}
+      .logo-header{max-width:38vw}
+      .page-title h2{font-size:19px}
+      .table-tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+      .table-tools .btn{font-size:10.5px;padding:9px 5px}
+      .modal-head{padding:11px 12px}
+      .modal-body{padding:11px}
+      .modal-foot{padding:9px 11px}
+      .login-card{padding:18px}
+      .section-card{padding:10px}
+    }
+
+    @media screen and (max-width:340px){
+      .table-tools{grid-template-columns:minmax(0,1fr)}
+      #busca-aluno,.table-export-actions,#btn-excluir-alunos-turma,#btn-add-disciplina-turma{grid-column:1}
+      .table-export-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .history-grid{grid-template-columns:minmax(0,1fr)}
+      .modal-foot>.btn{flex-basis:100%}
+    }
+
+  </style>
 </head>
 <body>
   <div id="splashscreen" class="splash"><div class="splash-inner"><div class="school-mark">🏫</div><h2>Portal de Notas e Acompanhamento Pedagógico</h2><p>Preparando seu ambiente de trabalho</p><div class="spinner"></div></div></div>
